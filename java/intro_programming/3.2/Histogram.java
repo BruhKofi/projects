@@ -1,10 +1,10 @@
 public class Histogram
 {
-    private final double[] freq;
+    private final int[] freq;
     private double max;
 
     public Histogram(int N) {
-        freq = new double[N];
+        freq = new int[N];
     }
 
     public void addDataPoint(int i) {
@@ -20,17 +20,17 @@ public class Histogram
             draw.filledRectangle(i, freq[i]/2, 0.25, freq[i]/2);
         }
         
-        double mean = StdStats.mean(freq);
-        double stddev = StdStats.stddev(freq);
-        StdOut.println(mean + " " + stddev);
+
+        // double stddev = StdStats.stddev(freq);
+        // StdOut.println(mean + " " + stddev);
         
-        draw.setPenColor(Draw.RED);
-        draw.line(mean, 0.0, mean, max);
-        draw.setPenColor(Draw.BLUE);
-        double stddevLow = mean - 2.0*stddev;
-        double stddevHigh = mean + 2.0*stddev;
-        draw.line(stddevLow, 0.0, stddevLow, max);
-        draw.line(stddevHigh, 0.0, stddevHigh, max);
+        // draw.setPenColor(Draw.RED);
+        // draw.line(mean, 0.0, mean, max);
+        // draw.setPenColor(Draw.BLUE);
+        // double stddevLow = mean - 2.0*stddev;
+        // double stddevHigh = mean + 2.0*stddev;
+        // draw.line(stddevLow, 0.0, stddevLow, max);
+        // draw.line(stddevHigh, 0.0, stddevHigh, max);
     }
 
     public static void main(String[] args) {
