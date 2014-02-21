@@ -19,9 +19,11 @@ public class Histogram
         for (int i = 0; i<freq.length; i++) {
             draw.filledRectangle(i, freq[i]/2, 0.25, freq[i]/2);
         }
+        
         double mean = StdStats.mean(freq);
         double stddev = StdStats.stddev(freq);
         StdOut.println(mean + " " + stddev);
+        
         draw.setPenColor(Draw.RED);
         draw.line(mean, 0.0, mean, max);
         draw.setPenColor(Draw.BLUE);
