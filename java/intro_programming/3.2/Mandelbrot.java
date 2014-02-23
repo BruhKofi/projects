@@ -17,13 +17,24 @@ public class Mandelbrot
         double size = Double.parseDouble(args[2]);
         int N = 512;
         Picture pic = new Picture(N, N);
+        int[][] colors = new int[256][3];
+        int l = 0;
+        while (!StdIn.isEmpty()) {
+            int n1 = StdIn.readInt();
+            int n2 = StdIn.readInt();
+            int n3 = StdIn.readInt();
+            colors[l][0] = n1;
+            colors[l][1] = n2;
+            colors[l][2] = n3;
+            l++;
+        }
         for (int i = 0; i<N; i++) {
             for (int j = 0; j<N; j++) {
                 double x0 = xc - size/2 + size*i/N;
                 double y0 = yc - size/2 + size*j/N;
                 Complex z0 = new Complex(x0, y0);
-                int t = 255 - mand(z0, 255);
-                Color c = new Color(t, t, t);
+                int t = mand(z0, 255);
+                Color c = new Color(colors[t][0], colors[t][1], colors[t][2]);
                 pic.set(i, N-1-j, c);
             }
         }

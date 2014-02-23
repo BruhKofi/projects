@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 public class Turtle
 {
     private double x, y;
@@ -20,6 +22,22 @@ public class Turtle
         x += step*Math.cos(Math.toRadians(angle));
         y += step*Math.sin(Math.toRadians(angle));
         StdDraw.line(oldx, oldy, x, y);
+    }
+
+    public void setXscale(double x, double y) {
+        StdDraw.setXscale(x, y);
+    }
+
+    public void setYscale(double x, double y) {
+        StdDraw.setYscale(x, y);
+    }
+
+    public void setCanvasSize(int x, int y) {
+        StdDraw.setCanvasSize(x, y);
+    }
+
+    public void setPenColor(Color color) {
+        StdDraw.setPenColor(color);
     }
 
     public static void main(String[] args) {
