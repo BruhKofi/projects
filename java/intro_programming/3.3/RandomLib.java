@@ -37,6 +37,16 @@ public class RandomLib
         return uniform() < 0.5;
     }
 
+    public int discrete(double[] a) {
+        double r = uniform();
+        double sum = 0.0;
+        int i = -1;
+        while (sum < r) {
+            sum += a[++i];
+        }
+        return i;
+    }
+
     public void shuffle(double[] a) {
         int N = a.length;
         for (int i = 0; i<N; i++) {
