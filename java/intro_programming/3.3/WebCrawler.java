@@ -39,16 +39,23 @@ public class WebCrawler
     }
 
     private URLReader nextURL(Document d, int i) {
+        StdOut.println(i);
         String documentText = (new In(d.name())).readAll();
         String start = "href=\"http://www";
-        String end = "html\"";
+        String end = "\"";
         i = documentText.indexOf(start, i);
         if (i == -1) return new URLReader("", -1);
-        int j = documentText.indexOf(end, i);
-        String URL = documentText.substring(i+6, j+4);
+        int j = documentText.indexOf(end, i+6);
         URLReader urlReader = new URLReader();
-        urlReader.URL = URL;
-        urlReader.indexOfURL = i;
+        if ("html".equals(documentText.substring(j-4, j))) {
+            StdOut.println(documentText.substring(i+6, j));
+            String URL = documentText.substring(i+6, j);
+            urlReader.URL = URL;
+            urlReader.indexOfURL = i;
+
+        } else {
+            nextURL(d, j);
+        }
         return urlReader;
     }
 
