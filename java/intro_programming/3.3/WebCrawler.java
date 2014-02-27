@@ -9,25 +9,42 @@ public class WebCrawler
         double tol = Double.parseDouble(args[2]);
         Document start = new Document(startPage, k, d);
         Document fixedPoint = new Document(comparePage, k, d);
-        crawl(fixedPoint, start, tol);
+        WebCrawler wb = new WebCrawler();
+        wb.crawl(fixedPoint, start, tol);
     }
 
-    public static void crawl(Document d1, Document d2, double tol) {
+    public void crawl(Document d1, Document d2, double tol) {
         if (d1.simTo(d2) < 0.01) return;
         if (d1.simTo(d2) > tol) StdOut.println(d2.name());
         StdOut.println(d1.name() + " " + d2.name() + " " + d1.simTo(d2));
-        String documentText = (new In(d2.name())).readAll();
-        String start = "href=\"http://www";
-        String end = "\"";
-        int oldI = 0;
-        int i = 0, j = 0;
+        int i = 0;
         while (true) {
-            i = documentText.indexOf(start, oldI);
-            if (i == -1) break;
-            j = documentText.indexOf(end, i+6);
-            d2 = new Document(documentText.substring(i+6, j), k, d);
-            oldI = i+1;
+            URLReader urlReader = nextURL(d2, i);
+            if (urlReader == null) return;
+            i = urlReader.indexOfURL + 1;
+            if (urlReader.URL.equals(d2.name())) continue;
+            StdOut.println(d2.name() + " " + i);
+            d2 = new Document(urlReader.URL, k, d);
             crawl(d1, d2, tol);
         }
+    }
+
+    private URLReader nextURL(Document d, int i) {
+        String documentText = (new In(d.name())).readAll();
+        String start = "href=\"http://www";
+        String end = "\"";
+        i = documentText.indexOf(start, i);
+        if (i == -1) return null;
+        int j = documentText.indexOf(end, i+6);
+        String URL = documentText.substring(i+6, j);
+        URLReader urlReader = new URLReader();
+        urlReader.URL = URL;
+        urlReader.indexOfURL = i;
+        return urlReader;
+    }
+
+    private class URLReader {
+        String URL;
+        int indexOfURL;
     }
 }
