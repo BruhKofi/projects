@@ -9,6 +9,10 @@ public class WebCrawler
         scan(s);
     }
 
+    public static void compareDocs(Document fixedPoint, Document variable, double tol) {
+        if (fixedPoint.simTo(variable) > tol) StdOut.println(variable.name());
+    }
+
     public static void scan(String s) {
         String start = "href=\"http://www";
         String end = "\"";
