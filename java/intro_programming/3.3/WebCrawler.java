@@ -10,10 +10,16 @@ public class WebCrawler
     }
 
     public static void scan(String s) {
-        String start = "href=\"http://";
+        String start = "href=\"http://www";
         String end = "\"";
-        int i = s.indexOf(start);
-        int j = s.indexOf(end, i+start.length());
-        StdOut.println(s.substring(i+start.length(), j));
+        int oldI = 0;
+        int i = 0, j = 0;
+        while (true) {
+            i = s.indexOf(start, oldI);
+            if (i == -1) break;
+            j = s.indexOf(end, i+6);
+            StdOut.println(s.substring(i+6, j));
+            oldI = i+1;
+        }
     }
 }
