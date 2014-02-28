@@ -22,4 +22,12 @@ public class Document
     public String name() {
         return id;
     }
+
+    public static void main(String[] args) {
+        String name = args[0];
+        int k = Integer.parseInt(args[1]);
+        int d = Integer.parseInt(args[2]);
+        Document doc = new Document(name, k, d);
+        StdOut.println(doc.profile);
+    }
 }
