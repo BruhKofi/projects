@@ -1,6 +1,6 @@
 public class StringRotation
 {
-    public static String rotate(String s, int index) {
+    public static String rotateString(String s, int index) {
         int N = s.length();
         int k = index % N;
         if (k == 0) return s;
@@ -17,13 +17,15 @@ public class StringRotation
         return new String(a);
     }
 
-    public static void rotate(char[] x, int index) {
+    public static String rotateChar(String s, int index) {
+        char[] x = s.toCharArray();
         int N = x.length;
         int k = index % N;
-        if (k == 0) return;
+        if (k == 0) return s;
         reverse(x, 0, N);
         reverse(x, 0, N-k);
         reverse(x, N-k, N);
+        return new String(x);
     }
 
     private static void reverse(char[] x, int lo, int hi) {
@@ -39,12 +41,14 @@ public class StringRotation
     }
 
     public static void main(String[] args) {
-        String s = args[0];
-        for (int i = 0; i<s.length(); i++) {
-            char[] x = s.toCharArray();
-            rotate(x, i);
-            StdOut.println("character array\t\t" + new String(x));
-            StdOut.println("string\t\t\t" + rotate(s, i));
-        }
+        String text = StdIn.readAll();
+        int N = text.length();
+        StdOut.println(N);
+        Stopwatch sw = new Stopwatch();
+        rotateString(text, 800);
+        StdOut.println("String only: " + sw.elapsedTime() + " seconds");
+        Stopwatch sw2 = new Stopwatch();
+        rotateChar(text, 800);
+        StdOut.println("Character array : " + sw2.elapsedTime() + " seconds");
     }
 }
