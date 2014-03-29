@@ -7,11 +7,12 @@ public class MyRandomQueue<Item> implements Iterable<Item>
     private Item[] a;
 
     public MyRandomQueue() {
+        N = 0;
         a = (Item[]) new Object[1];
     }
     
     public boolean isEmpty() {
-        return N == 0;
+        return size() == 0;
     }
 
     public int size() {
@@ -61,17 +62,34 @@ public class MyRandomQueue<Item> implements Iterable<Item>
     private class MyRandomQueueIterator implements Iterator<Item>
     {
         int current = 0;
+        int[] order = new int[N];
+        
+        MyRandomQueueIterator() {
+            for (int i = 0; i<N; i++) {
+                order[i] = i;
+            }
+            shuffle(order);
+        }
         
         public boolean hasNext() {
             return current < N;
         }
 
         public Item next() {
-            return a[current++];
+            return a[order[current++]];
         }
 
         public void remove() {
             throw new UnsupportedOperationException();
+        }
+
+        private void shuffle(int[] a) {
+            for (int i = 0; i<a.length; i++) {
+                int r = i + StdRandom.uniform(N-i);
+                int t = a[r];
+                a[r] = a[i];
+                a[i] = t;
+            }
         }
     }
         
@@ -83,8 +101,15 @@ public class MyRandomQueue<Item> implements Iterable<Item>
             String s = StdIn.readString();
             q.enqueue(s);
         }
-        for (int i = 0; i<q.size(); i++) {
-            StdOut.println(q.dequeue());
+        // for (int i = 0; i<q.size(); i++) {
+        //     StdOut.println(q.dequeue());
+        // }
+        for (String s : q) {
+            StdOut.println(s);
+        }
+        StdOut.println();
+        for (String s : q) {
+            StdOut.println(s);
         }
     }
 }
