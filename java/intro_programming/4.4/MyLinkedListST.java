@@ -32,6 +32,16 @@ public class MyLinkedListST<Key extends Comparable<Key>, Value> implements Itera
         return get(key) != null;
     }
 
+    private StringBuilder traverse(Node x, StringBuilder sb) {
+        if (x == null) return sb;
+        traverse(x.next, sb);
+        return sb.append(x.key).append(" ");
+    }
+
+    public String toString() {
+        return traverse(first, new StringBuilder()).toString();
+    }
+
     public MyLinkedListSTIterator iterator() {
         return new MyLinkedListSTIterator();
     }
@@ -71,9 +81,11 @@ public class MyLinkedListST<Key extends Comparable<Key>, Value> implements Itera
             q.enqueue(i);
         }
 
-        for (String s : st) {
-            Queue<Integer> q = st.get(s);
-            if (q.size() >= minocc) StdOut.println(s + ": " + q);
-        }
+        // for (String s : st) {
+        //     Queue<Integer> q = st.get(s);
+        //     if (q.size() >= minocc) StdOut.println(s + ": " + q);
+        // }
+
+        StdOut.println(st.toString());
     }
 }
