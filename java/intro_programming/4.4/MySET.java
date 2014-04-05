@@ -48,6 +48,40 @@ public class MySET<Key extends Comparable<Key>> implements Iterable<Key>
         else return x.key;
     }
 
+    public Key floor(Key key) {
+        return floor(root, key, root.key);
+    }
+
+    public Key ceil(Key key) {
+        return ceil(root, key, root.key);
+    }
+
+    private Key floor(Node x, Key key, Key candidate) {
+        if (x == null) return key.compareTo(candidate) > 0 ? candidate : null;
+        int cmp = key.compareTo(x.key);
+        if (cmp > 0) {
+            if (candidate.compareTo(x.key) < 0) {
+                return floor(x.right, key, x.key);
+            }
+            return floor(x.right, key, candidate);
+        }
+        if (cmp < 0) return floor(x.left, key, candidate);
+        else return x.key;
+    }
+
+    private Key ceil(Node x, Key key, Key candidate) {
+        if (x == null) return key.compareTo(candidate) < 0 ? candidate : null;
+        int cmp = key.compareTo(x.key);
+        if (cmp > 0) return ceil(x.right, key, candidate);
+        else if (cmp < 0) {
+            if (candidate.compareTo(x.key) < 0) {
+                return ceil(x.left, key, x.key);
+            }
+            return ceil(x.left, key, candidate);
+        }
+        else return x.key;
+    }
+
     public MySETIterator iterator() {
         return new MySETIterator();
     }
@@ -92,9 +126,10 @@ public class MySET<Key extends Comparable<Key>> implements Iterable<Key>
                 set.add(s);
             }
         }
-        for (String s : set) {
-            StdOut.println(s);
-        }
+        // for (String s : set) {
+        //     StdOut.println(s);
+        // }
+        StdOut.println(set.floor("c") + " " + set.ceil("d"));
     }
 }
 
