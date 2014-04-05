@@ -15,6 +15,15 @@ public class BSTPractice
         }
     }
 
+    public boolean balanced() {
+        return balanced(root);
+    }
+
+    private boolean balanced(Node x) {
+        if (x == null) return true;
+        return Math.abs(height(x.left) - height(x.right)) <= 1;
+    }
+
     public boolean heapOrdered() {
         return heapOrdered(root);
     }
@@ -89,7 +98,7 @@ public class BSTPractice
             double d = StdIn.readDouble();
             st.put(d);
         }
-        StdOut.println("size: " + st.size() + "\nleaves: " + st.leaves() + "\ntotal: " + st.total() +"\nheap ordered: " + st.heapOrdered());
+        StdOut.println("size: " + st.size() + "\nleaves: " + st.leaves() + "\ntotal: " + st.total() +"\nheap ordered: " + st.heapOrdered() + "\nblanaced: " + st.balanced());
          // Stopwatch sw = new Stopwatch();
          // for (int i = 100; true; i*=2) {
          //     BSTPractice st = new BSTPractice();
