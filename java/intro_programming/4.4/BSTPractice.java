@@ -15,6 +15,15 @@ public class BSTPractice
         }
     }
 
+    public int height() {
+        return height(root);
+    }
+
+    private int height(Node x) {
+        if (x == null) return 0;
+        return 1 + Math.max(height(x.left), height(x.right));
+    }
+
     public void put(double d) {
         root = put(root, d);
     }
@@ -78,6 +87,9 @@ public class BSTPractice
              StdOut.println(i + ": " + sw.elapsedTime());
              sw = new Stopwatch();
              double d = st.total();
+             StdOut.println(i + ": " + sw.elapsedTime());
+             sw = new Stopwatch();
+             n = st.height();
              StdOut.println(i + ": " + sw.elapsedTime());
          }
     }
