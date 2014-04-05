@@ -15,6 +15,23 @@ public class BSTPractice
         }
     }
 
+    public boolean heapOrdered() {
+        return heapOrdered(root);
+    }
+
+    private boolean heapOrdered(Node x) {
+        if (x == null) return true;
+        if (x.isLeaf()) return true;
+        return x.d > max(x, Double.NEGATIVE_INFINITY);
+    }
+
+    private double max(Node x, double max) {
+        if (x == null) return max;
+        if (x.isLeaf()) return Math.max(x.d, max);
+        if (x.d > max) max = x.d;
+        return Math.max(max(x.left, max), max(x.right, max));
+    }
+        
     public int height() {
         return height(root);
     }
@@ -67,30 +84,30 @@ public class BSTPractice
     }
 
     public static void main(String[] args) {
-        // BSTPractice st = new BSTPractice();
-        // while (!StdIn.isEmpty()) {
-        //     double d = StdIn.readDouble();
-        //     st.put(d);
-        // }
-        // StdOut.println("size: " + st.size() + "\nleaves: " + st.leaves() + "\ntotal: " + st.total());
-         Stopwatch sw = new Stopwatch();
-         for (int i = 100; true; i*=2) {
-             BSTPractice st = new BSTPractice();
-             for (int j = 0; j<i; j++) {
-                 st.put(StdRandom.uniform());
-             }
-             sw = new Stopwatch();
-             int n = st.size();
-             StdOut.println(i + ": " + sw.elapsedTime());
-             sw = new Stopwatch();
-             n = st.leaves();
-             StdOut.println(i + ": " + sw.elapsedTime());
-             sw = new Stopwatch();
-             double d = st.total();
-             StdOut.println(i + ": " + sw.elapsedTime());
-             sw = new Stopwatch();
-             n = st.height();
-             StdOut.println(i + ": " + sw.elapsedTime());
-         }
+        BSTPractice st = new BSTPractice();
+        while (!StdIn.isEmpty()) {
+            double d = StdIn.readDouble();
+            st.put(d);
+        }
+        StdOut.println("size: " + st.size() + "\nleaves: " + st.leaves() + "\ntotal: " + st.total() +"\nheap ordered: " + st.heapOrdered());
+         // Stopwatch sw = new Stopwatch();
+         // for (int i = 100; true; i*=2) {
+         //     BSTPractice st = new BSTPractice();
+         //     for (int j = 0; j<i; j++) {
+         //         st.put(StdRandom.uniform());
+         //     }
+         //     sw = new Stopwatch();
+         //     int n = st.size();
+         //     StdOut.println(i + ": " + sw.elapsedTime());
+         //     sw = new Stopwatch();
+         //     n = st.leaves();
+         //     StdOut.println(i + ": " + sw.elapsedTime());
+         //     sw = new Stopwatch();
+         //     double d = st.total();
+         //     StdOut.println(i + ": " + sw.elapsedTime());
+         //     sw = new Stopwatch();
+         //     n = st.height();
+         //     StdOut.println(i + ": " + sw.elapsedTime());
+         // }
     }
 }
