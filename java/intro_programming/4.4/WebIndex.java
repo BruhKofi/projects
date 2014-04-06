@@ -22,8 +22,10 @@ public class WebIndex
         StdOut.println("Ready ...");
 
         while (!StdIn.isEmpty()) {
-            String s = StdIn.readString();
-            if (st.contains(s)) StdOut.println(s + ": " + st.get(s));
+            String[] line = StdIn.readLine().split("\\s+");
+            for (String s : line) {
+                if (st.contains(s)) StdOut.println(s + ": " + st.get(s));
+            }
         }
     }
 }
