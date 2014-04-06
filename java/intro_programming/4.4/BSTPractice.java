@@ -92,13 +92,23 @@ public class BSTPractice
         return x.d + total(x.left) + total(x.right);
     }
 
+    public static boolean isomorphic(BSTPractice x, BSTPractice y) {
+        return isomorphic(x.root, y.root);
+    }
+
+    public static boolean isomorphic(Node x, Node y) {
+        if (x == null && y == null) return true;
+        if (x.isLeaf() && y.isLeaf()) return true;
+        return isomorphic(x.left, y.left) && isomorphic(x.right, y.right);
+    }
+
     public static void main(String[] args) {
-        BSTPractice st = new BSTPractice();
-        while (!StdIn.isEmpty()) {
-            double d = StdIn.readDouble();
-            st.put(d);
-        }
-        StdOut.println("size: " + st.size() + "\nleaves: " + st.leaves() + "\ntotal: " + st.total() +"\nheap ordered: " + st.heapOrdered() + "\nblanaced: " + st.balanced());
+        // BSTPractice st = new BSTPractice();
+        // while (!StdIn.isEmpty()) {
+        //     double d = StdIn.readDouble();
+        //     st.put(d);
+        // }
+        // StdOut.println("size: " + st.size() + "\nleaves: " + st.leaves() + "\ntotal: " + st.total() +"\nheap ordered: " + st.heapOrdered() + "\nblanaced: " + st.balanced());
          // Stopwatch sw = new Stopwatch();
          // for (int i = 100; true; i*=2) {
          //     BSTPractice st = new BSTPractice();
@@ -118,5 +128,23 @@ public class BSTPractice
          //     n = st.height();
          //     StdOut.println(i + ": " + sw.elapsedTime());
          // }
+
+        BSTPractice st1 = new BSTPractice();
+        BSTPractice st2 = new BSTPractice();
+        BSTPractice st3 = new BSTPractice();
+
+        st1.put(3);
+        st1.put(2);
+        st1.put(5);
+        
+        st2.put(3);
+        st2.put(2);
+        st2.put(5);
+
+        st3.put(5);
+        st3.put(6);
+        st3.put(7);
+
+        StdOut.println(isomorphic(st1, st2) + " " + isomorphic(st2, st3));
     }
 }
