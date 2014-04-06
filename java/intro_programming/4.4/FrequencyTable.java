@@ -1,6 +1,6 @@
 public class FrequencyTable
 {
-    BST<String, Integer> st = new BST<String, Integer>();
+    private BST<String, Integer> st = new BST<String, Integer>();
     
     public void click(String s) {
         if (st.contains(s)) st.put(s, st.get(s)+1);
