@@ -82,6 +82,25 @@ public class MySET<Key extends Comparable<Key>> implements Iterable<Key>
         else return x.key;
     }
 
+    public SET union(SET<Key> that) {
+        SET<Key> set = new SET<Key>();
+        for (Key key : this) {
+            set.add(key);
+        }
+        for (Key key : that) {
+            if (!set.contains(key)) set.add(key);
+        }
+        return set;
+    }
+
+    public SET intersection(SET<Key> that) {
+        SET<Key> set = new SET<Key>();
+        for (Key key : that) {
+            if (this.contains(key)) set.add(key);
+        }
+        return set;
+    }
+
     public MySETIterator iterator() {
         return new MySETIterator();
     }
