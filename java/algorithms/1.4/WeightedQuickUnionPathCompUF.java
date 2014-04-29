@@ -3,10 +3,12 @@ public class WeightedQuickUnionPathCompUF
     private int[] id;
     private int count;
     private int[] sz;
+    private int sites;
     
     public WeightedQuickUnionPathCompUF(int N) {
         id = new int[N];
         sz = new int[N];
+        sites = N;
         count = N;
         for (int i = 0; i<N; i++) {
             id[i] = i;
@@ -38,6 +40,26 @@ public class WeightedQuickUnionPathCompUF
         if (sz[i] < sz[j]) { id[i] = j; sz[j] += sz[i]; }
         else { id[j] = i; sz[i] += sz[j]; }
         count--;
+    }
+
+    public int newSite() {
+        if (sites == id.length) resize(2*sites);
+        id[sites] = sites;
+        sz[sites] = 1;
+        sites++;
+        count++;
+        return sites;
+    }
+
+    private void resize(int newSize) {
+        int[] szCopy = new int[newSize];
+        int[] idCopy = new int[newSize];
+        for (int i = 0; i<sites; i++) {
+            szCopy[i] = sz[i];
+            idCopy[i] = id[i];
+        }
+        sz = szCopy;
+        id = idCopy;
     }
 
     public static void main(String[] args) {
