@@ -44,4 +44,3 @@ public class AutoboxTest
         return sw.elapsedTime();
     }
 }
-        

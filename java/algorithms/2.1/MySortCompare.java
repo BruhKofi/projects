@@ -8,6 +8,7 @@ public class MySortCompare
         if (alg.equals("Merge")) Merge.sort(a);
         if (alg.equals("Quick")) Quick.sort(a);
         if (alg.equals("Heap")) Heap.sort(a);
+        if (alg.equals("Sentinel")) SentinelInsertion.sort(a);
         return timer.elapsedTime();
     }
 
@@ -75,9 +76,9 @@ public class MySortCompare
     }
 
     public static void doublingTest(String alg, int N, int T) {
-        double prev = timeThreeKeysInput(alg, N, T);
+        double prev = timeConstantInput(alg, N, T);
         for (int n = 2*N; true; n*=2) {
-            double next = timeThreeKeysInput(alg, n, T);
+            double next = timeConstantInput(alg, n, T);
             StdOut.printf("%d %7.1f %5.1f\n", n, next, next/prev);
             prev = next;
         }
@@ -88,7 +89,7 @@ public class MySortCompare
         String alg2 = args[1];
         int N = Integer.parseInt(args[2]);
         int T = Integer.parseInt(args[3]);
-        doublingTest(alg1, N, T);
+        //doublingTest(alg1, N, T);
         double t1 = timeReverseInput(alg1, N, T);
         double t2 = timeReverseInput(alg2, N, T);
         StdOut.printf("For %d random doubles\n %s is ", N, alg1);
