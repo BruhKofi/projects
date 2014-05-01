@@ -8,7 +8,7 @@ public class MySortCompare
         if (alg.equals("Merge")) Merge.sort(a);
         if (alg.equals("Quick")) Quick.sort(a);
         if (alg.equals("Heap")) Heap.sort(a);
-        if (alg.equals("Sentinel")) SentinelInsertion.sort(a);
+        //        if (alg.equals("Sentinel")) SentinelInsertion.sort(a);
         return timer.elapsedTime();
     }
 
@@ -75,10 +75,25 @@ public class MySortCompare
         return total;
     }
 
+    public static double timeTwoKeysInput(String alg, int N, int T) {
+        double total = 0.0;
+        Double[] a = new Double[N];
+        double d1 = StdRandom.uniform();
+        double d2 = StdRandom.uniform();
+        for (int t = 0; t<T; t++) {
+            for (int i = 0; i<N; i++) {
+                if (i%2 == 0) a[i] = d1;
+                else a[i] = d2;
+            }
+            StdRandom.shuffle(a);
+            total += time(alg, a);
+        }
+        return total;
+    }
     public static void doublingTest(String alg, int N, int T) {
-        double prev = timeConstantInput(alg, N, T);
+        double prev = timeTwoKeysInput(alg, N, T);
         for (int n = 2*N; true; n*=2) {
-            double next = timeConstantInput(alg, n, T);
+            double next = timeTwoKeysInput(alg, n, T);
             StdOut.printf("%d %7.1f %5.1f\n", n, next, next/prev);
             prev = next;
         }
@@ -89,10 +104,12 @@ public class MySortCompare
         String alg2 = args[1];
         int N = Integer.parseInt(args[2]);
         int T = Integer.parseInt(args[3]);
-        //doublingTest(alg1, N, T);
-        double t1 = timeReverseInput(alg1, N, T);
-        double t2 = timeReverseInput(alg2, N, T);
-        StdOut.printf("For %d random doubles\n %s is ", N, alg1);
-        StdOut.printf("%.1f times faster than %s\n", t2/t1, alg2);
+        doublingTest(alg1, N, T);
+        for (int n = N; true; n *= 2) {
+            double t1 = timeRandomInput(alg1, n, T);
+            double t2 = timeRandomInput(alg2, n, T);
+            StdOut.printf("For %d random doubles\n %s is ", n, alg1);
+            StdOut.printf("%.1f times faster than %s\n", t2/t1, alg2);
+        }
     }
 }
