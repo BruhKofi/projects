@@ -24,6 +24,7 @@ public class SortAnimation
         if (alg.equals("Selection")) mySelection(a);
         if (alg.equals("Shell")) myShell(a);
         if (alg.equals("Merge")) myMerge(a);
+        if (alg.equals("recursiveMerge")) myRecursiveMerge(a);
         assert(isSorted(a));
     }
 
@@ -75,6 +76,20 @@ public class SortAnimation
                 merge(a, aux, lo, lo+sz-1, Math.min(lo+sz+sz-1, N-1));
             }
         }
+    }
+
+    public static void myRecursiveMerge(double[] a) {
+        int N = a.length;
+        double[] aux = new double[N];
+        myRecursiveMerge(a, aux, 0, N-1);
+    }
+
+    public static void myRecursiveMerge(double[] a, double[] aux, int lo, int hi) {
+        if (hi <= lo) return;
+        int mid = lo + (hi - lo)/2;
+        myRecursiveMerge(a, aux, lo, mid);
+        myRecursiveMerge(a, aux, mid+1, hi);
+        merge(a, aux, lo, mid, hi);
     }
 
     private static void merge(double[] a, double[] aux, int lo, int mid, int hi) {
