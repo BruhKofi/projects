@@ -14,20 +14,17 @@ public class SortAnimation
     }
 
     public static void main(String[] args) {
-        int N = Integer.parseInt(args[0]);
+        String alg = args[0];
+        int N = Integer.parseInt(args[1]);
         double[] a = new double[N];
-        // for (int i = 0; i<N; i++) {
-        //     a[i] = StdRandom.uniform();
-        // }
-        // mySelection(a);
-        // for (int i = 0; i<N; i++) {
-        //     a[i] = StdRandom.uniform();
-        // }
-        // myInsertion(a);
         for (int i = 0; i<N; i++) {
             a[i] = StdRandom.uniform();
         }
-        myShell(a);
+        if (alg.equals("Insertion")) myInsertion(a);
+        if (alg.equals("Selection")) mySelection(a);
+        if (alg.equals("Shell")) myShell(a);
+        if (alg.equals("Merge")) myMerge(a);
+        assert(isSorted(a));
     }
 
     public static void mySelection(double[] a) {
@@ -70,9 +67,42 @@ public class SortAnimation
         show(a, N-2, N-1);
     }
 
-    public static void exch(double[] a, int i, int j) {
+    public static void myMerge(double[] a) {
+        int N = a.length;
+        double[] aux = new double[N];
+        for (int sz = 1; sz<N; sz = sz+sz) {
+            for (int lo = 0; lo<N-sz; lo += sz+sz) {
+                merge(a, aux, lo, lo+sz-1, Math.min(lo+sz+sz-1, N-1));
+            }
+        }
+    }
+
+    private static void merge(double[] a, double[] aux, int lo, int mid, int hi) {
+        int i = lo;
+        int j = mid+1;
+        for (int k = lo; k<=hi; k++) {
+            aux[k] = a[k];
+        }
+        for (int k = lo; k<=hi; k++) {
+            if (i > mid) a[k] = aux[j++];
+            else if (j > hi) a[k] = aux[i++];
+            else if (aux[i] < aux[j]) a[k] = aux[i++];
+            else a[k] = aux[j++];
+        }
+        show(a, hi, lo);
+    }
+    
+    private static void exch(double[] a, int i, int j) {
         double t = a[i];
         a[i] = a[j];
         a[j] = t;
+    }
+
+    private static boolean isSorted(double[] a) {
+        int N = a.length;
+        for (int i = 1; i<N; i++) {
+            if (a[i-1] > a[i]) return false;
+        }
+        return true;
     }
 }
