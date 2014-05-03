@@ -3,17 +3,11 @@ public class MergeSortTester
     public static void main(String[] args) {
         int N = Integer.parseInt(args[0]);
         double[] a = rand(N);
-        int top = topDown(a);
+        topDown(a);
         assert(isSorted(a));
         a = rand(N);
-        int bot = bottomUp(a);
+        bottomUp(a);
         assert(isSorted(a));
-        StdOut.println("Compares for top down for N = " + N);
-        StdOut.println(": " + top);
-        StdOut.println("Compares for bottom up for N = " + N);
-        StdOut.println(": " + bot);
-        StdOut.println("6*" + N + "*lg(" + N + ")");
-        StdOut.println(6*N*Math.log(N)/Math.log(2));
     }
 
     private static double[] rand(int N) {
@@ -31,91 +25,55 @@ public class MergeSortTester
         return true;
     }
     
-    public static int merge(double[] a, double[] aux, int lo, int mid, int hi) {
-        int cnt = 0;
+    public static void merge(double[] a, double[] aux, int lo, int mid, int hi) {
         int i = lo;
         int j = mid+1;
+        for (int k = lo; k<=hi; k++) aux[k] = a[k];
         for (int k = lo; k<=hi; k++) {
-            cnt += 2;
-            aux[k] = a[k];
+            if (i > mid) a[k] = aux[j++];
+            else if (j > hi) a[k] = aux[i++];
+            else if (aux[i] < aux[j]) a[k] = aux[i++];
+            else a[k] = aux[j++];
         }
-        for (int k = lo; k<=hi; k++) {
-            if (i > mid) {
-                a[k] = aux[j++];
-                cnt += 2;
-            }
-            else if (j > hi) {
-                a[k] = aux[i++];
-                cnt += 2;
-            }
-            else if (aux[i] < aux[j]) {
-                cnt += 2;
-                a[k] = aux[i++];
-                cnt += 2;
-            }
-            else {
-                a[k] = aux[j++];
-                cnt += 2;
-            }
-        }
-        return cnt;
     }
 
-    public static int mergeFaster(double[] a, double[] aux, int lo, int mid, int hi) {
+    public static void mergeFaster(double[] a, double[] aux, int lo, int mid, int hi) {
         int i = lo;
-        int j = mid+1;
-        for (int k = lo; k<=mid; k++) {
-            cnt += 2;
-            aux[k] = a[k];
-        }
-        for (int k = mid+1; k<=hi; k++) {
-            
+        int j = hi;
+        int t = 0;
         for (int k = lo; k<=hi; k++) {
-            if (i > mid) {
-                a[k] = aux[j++];
-            }
-            else if (j > hi) {
-                a[k] = aux[i++];
-            }
-            else if (aux[i] < aux[j]) {
-                a[k] = aux[i++];
-            }
-            else {
-                a[k] = aux[j++];
-            }
+            if (k <= mid) aux[k] = a[k];
+            else aux[k] = a[hi- t++];
         }
-        return cnt;
+        for (int k = lo; k<=hi; k++) {
+            if (aux[i] < aux[j]) a[k] = aux[i++];
+            else a[k] = aux[j--];
+        }
     }
 
-    public static int topDown(double[] a) {
-        int cnt = 0;
+    public static void topDown(double[] a) {
         double[] aux = new double[a.length];
         int lo = 0;
         int hi = a.length - 1;
-        cnt += topDown(a, aux, lo, hi);
-        return cnt;
+        topDown(a, aux, lo, hi);
     }
 
-    private static int topDown(double[] a, double[] aux, int lo, int hi) {
-        int cnt = 0;
-        if (hi <= lo) return cnt;
+    private static void topDown(double[] a, double[] aux, int lo, int hi) {
+        if (hi <= lo) return;
         int mid = lo + (hi - lo)/2;
         topDown(a, aux, lo, mid);
         topDown(a, aux, mid+1, hi);
-        if (a[mid] < a[mid+1]) return 0;
-        cnt += merge(a, aux, lo, mid, hi);
-        return cnt;
+        if (a[mid] < a[mid+1]) return;
+        mergeFaster(a, aux, lo, mid, hi);
     }
 
-    public static int bottomUp(double[] a) {
-        int cnt = 0;
+    public static void bottomUp(double[] a) {
         int N = a.length;
         double[] aux = new double[N];
         for (int sz = 1; sz < N; sz += sz) {
             for (int lo = 0; lo < N-sz; lo += 2*sz) {
-                cnt += merge(a, aux, lo, lo + sz - 1, Math.min(N-1, lo + sz + sz - 1));
+                merge(a, aux, lo, lo + sz - 1, Math.min(N-1, lo + sz + sz - 1));
             }
         }
-        return cnt;
     }
 }
