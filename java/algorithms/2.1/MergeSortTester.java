@@ -59,12 +59,15 @@ public class MergeSortTester
     }
 
     private static void topDown(double[] a, double[] aux, int lo, int hi) {
-        if (hi <= lo) return;
+        if (hi - lo < 16) {
+            insertionSort(a, lo, hi);
+            return;
+        }
         int mid = lo + (hi - lo)/2;
         topDown(a, aux, lo, mid);
         topDown(a, aux, mid+1, hi);
         if (a[mid] < a[mid+1]) return;
-        mergeFaster(a, aux, lo, mid, hi);
+        merge(a, aux, lo, mid, hi);
     }
 
     public static void bottomUp(double[] a) {
@@ -75,5 +78,19 @@ public class MergeSortTester
                 merge(a, aux, lo, lo + sz - 1, Math.min(N-1, lo + sz + sz - 1));
             }
         }
+    }
+
+    private static void insertionSort(double[] a, int lo, int hi) {
+        for (int i = lo+1; i<=hi; i++) {
+            for (int j = i; j>lo && a[j-1] > a[j]; j--) {
+                exch(a, j, j-1);
+            }
+        }
+    }
+
+    private static void exch(double[] a, int i, int j) {
+        double t = a[i];
+        a[i] = a[j];
+        a[j] = t;
     }
 }
