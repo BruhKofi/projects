@@ -20,29 +20,23 @@ public class MergeQueue
         if (q1.isEmpty()) return q2;
         if (q2.isEmpty()) return q1;
         Queue<Double> q = new Queue<Double>();
-        Iterator<Double> itr1 = q1.iterator();
-        Iterator<Double> itr2 = q2.iterator();
-        Double item1 = itr1.next();
-        Double item2 = itr2.next();
-        while (itr1.hasNext() || itr2.hasNext()) {
-            if (!itr1.hasNext()) {
-                while (itr2.hasNext()) {
-                    q.enqueue(itr2.next());
-                }
-                return q;
-            } else if (!itr2.hasNext()) {
-                while (itr1.hasNext()) {
-                    q.enqueue(itr1.next());
-                }
-                return q;
-            }
-            else if (item1 <= item2) {
-                q.enqueue(item1);
-                item1 = itr1.next();
-            } else if (item2 < item1) {
-                q.enqueue(item2);
-                item2 = itr2.next();
-            }
+        int N = q1.size();
+        int M = q2.size();
+        Double[] d1 = new Double[N];
+        Double[] d2 = new Double[M];
+        for (int i = 0; i<d1.length; i++) {
+            d1[i] = q1.dequeue();
+        }
+        for (int i = 0; i<d2.length; i++) {
+            d2[i] = q2.dequeue();
+        }
+        int i = 0;
+        int j = 0;
+        while (i < N || j < M) {
+            if (i >= N) q.enqueue(d2[j++]);
+            else if (j >= M) q.enqueue(d1[i++]);
+            else if (d1[i] < d2[j]) q.enqueue(d1[i++]);
+            else q.enqueue(d2[j++]);
         }
         return q;
     }
