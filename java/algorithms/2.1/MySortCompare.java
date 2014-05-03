@@ -6,6 +6,8 @@ public class MySortCompare
         if (alg.equals("Selection")) Selection.sort(a);
         if (alg.equals("Shell")) Shell.sort(a);
         if (alg.equals("Merge")) Merge.sort(a);
+        if (alg.equals("Topmerge")) MergeSortTester.topDown(a);
+        if (alg.equals("Bottomup")) MergeSortTester.bottomUp(a);
         if (alg.equals("Quick")) Quick.sort(a);
         if (alg.equals("Heap")) Heap.sort(a);
         //        if (alg.equals("Sentinel")) SentinelInsertion.sort(a);
@@ -104,7 +106,7 @@ public class MySortCompare
         String alg2 = args[1];
         int N = Integer.parseInt(args[2]);
         int T = Integer.parseInt(args[3]);
-        doublingTest(alg1, N, T);
+        //        doublingTest(alg1, N, T);
         for (int n = N; true; n *= 2) {
             double t1 = timeRandomInput(alg1, n, T);
             double t2 = timeRandomInput(alg2, n, T);
