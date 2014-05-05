@@ -36,12 +36,11 @@ public class Merge3Way
         if (mid1 <= lo && hi <= mid2) return;
 
         int i = lo;
-        int j = mid1;
-        int l = mid2;
+        int j = mid1+1;
+        int l = mid2+1;
         for (int k = lo; k<= hi; k++) {
             aux[k] = a[k];
         }
-
         for (int k = lo; k<=hi; k++) {
             if (i > mid1) {
                 if (j > mid2) a[k] = aux[l++];
