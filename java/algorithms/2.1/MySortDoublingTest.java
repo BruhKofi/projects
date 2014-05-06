@@ -6,6 +6,7 @@ public class MySortDoublingTest
         if (alg.equals("Selection")) Selection.sort(a);
         if (alg.equals("Shell")) Shell.sort(a);
         if (alg.equals("Merge")) Merge.sort(a);
+        if (alg.equals("Merge3Way")) Merge3Way.sort(a);
         if (alg.equals("Quick")) Quick.sort(a);
         if (alg.equals("Heap")) Heap.sort(a);
         return timer.elapsedTime();
@@ -66,6 +67,7 @@ public class MySortDoublingTest
         int T = Integer.parseInt(args[2]);
         int maxIts = Integer.parseInt(args[3]);
         String alg2 = args[4];
+        doublingTest(alg, N, T);
         double[][] insertion = runtimeData(alg, N, T, maxIts);
         double[][] shell = runtimeData(alg2, N, T, maxIts);
         plotRuntimeData(insertion);
