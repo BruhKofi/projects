@@ -7,6 +7,7 @@ public class MySortDoublingTest
         if (alg.equals("Shell")) Shell.sort(a);
         if (alg.equals("Merge")) Merge.sort(a);
         if (alg.equals("Merge3Way")) Merge3Way.sort(a);
+        if (alg.equals("NaturalMerge")) NaturalMergesort.sort(a);
         if (alg.equals("Quick")) Quick.sort(a);
         if (alg.equals("Heap")) Heap.sort(a);
         return timer.elapsedTime();
@@ -59,6 +60,19 @@ public class MySortDoublingTest
             total += time(alg, a);
         }
         return total;
+    }
+
+    public static boolean isSorted(Double[] a) {
+        for (int i = 1; i<a.length; i++) {
+            if (a[i-1] > a[i]) return false;
+        }
+        return true;
+    }
+
+    public static void printArray(Double[] a) {
+        for (int i = 0; i<a.length; i++) {
+            StdOut.println(a[i]);
+        }
     }
 
     public static void main(String[] args) {
