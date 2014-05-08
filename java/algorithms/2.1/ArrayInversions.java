@@ -10,8 +10,8 @@ public class ArrayInversions
             StdOut.println(a[i]);
         }
         StdOut.println();
-        //StdOut.println(inv);
         StdOut.println(testInversions(a));
+        StdOut.println(insertionInversions(a));
         StdOut.println(inversions(a));
     }
 
@@ -28,7 +28,22 @@ public class ArrayInversions
         return cnt;
     }
 
-    public static int inversions(double[] a) {
+    public static int insertionInversions(double[] a) {
+        double[] aux = new double[a.length];
+        for (int i = 0; i<a.length; i++) {
+            aux[i] = a[i];
+        }
+        int cnt = 0;
+        for (int i = 1; i<a.length; i++) {
+            for (int j = i; j>0 && aux[j-1] > aux[j]; j--) {
+                exch(aux, j, j-1);
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+
+     public static int inversions(double[] a) {
         int N = a.length;
         double[] b = new double[N];
         for (int i = 0; i<N; i++) {
@@ -68,5 +83,11 @@ public class ArrayInversions
             }
         }
         return cnt;
+    }
+
+    private static void exch(double[] a, int i, int j) {
+        double t = a[i];
+        a[i] = a[j];
+        a[j] = t;
     }
 }
