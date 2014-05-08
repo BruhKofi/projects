@@ -21,6 +21,10 @@ public class MyLinkedList
         return N;
     }
 
+    public static void shuffle(MyLinkedList list) {
+        
+    }
+
     public static void sort(MyLinkedList list) {
 
         
