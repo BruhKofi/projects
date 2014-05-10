@@ -11,6 +11,8 @@ public class MySortCompare
         if (alg.equals("Merge3Way")) Merge3Way.sort(a);
         if (alg.equals("NaturalMerge")) NaturalMergesort.sort(a);
         if (alg.equals("Quick")) Quick.sort(a);
+        if (alg.equals("NonrecursiveQuick")) NonrecursiveQuickSort.sort(a);
+        if (alg.equals("SentinelQuick")) SentinelQuick.sort(a);
         if (alg.equals("Heap")) Heap.sort(a);
         return timer.elapsedTime();
     }
