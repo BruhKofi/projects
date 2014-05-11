@@ -6,8 +6,20 @@ public class MedianOf3
         for (int i = 0; i<N; i++) {
             a[i] = StdRandom.uniform();
         }
-        sort(a);
-        assert(isSorted(a));
+        for (int t = 0; t<8; t++) {
+            int[] s = indices(a, 0, N-1);
+            for (int l = 0; l<s.length; l++) {
+                StdOut.print(s[l] + "\t");
+            }
+            StdOut.println();
+            int i = max(s, a);
+            int j = min(s, a);
+            int k = mid(s, i, j);
+            StdOut.println(a[i] + " " + a[j] + " " + a[k]);
+        }
+        
+        // sort(a);
+        // assert(isSorted(a));
     }
 
     private static boolean isSorted(Double[] a) {
@@ -45,10 +57,7 @@ public class MedianOf3
     }
 
     private static int sample(Double[] a, int lo, int hi) {
-        int[] sample = new int[3];
-        for (int i = 0; i<3; i++) {
-            sample[i] = StdRandom.uniform(hi + 1 - lo) + lo;
-        }
+        int[] sample = indices(a, lo, hi);
         int min = min(sample, a);
         int max = max(sample, a);
         int mid = mid(sample, min, max);
@@ -58,12 +67,25 @@ public class MedianOf3
         return mid;
     }
 
+    private static int[] indices(Double[] a, int lo, int hi) {
+        int i = StdRandom.uniform(hi + 1 - lo) + lo;
+        int j = 0;
+        int k = 0;
+        do {
+            j = StdRandom.uniform(hi + 1 - lo) + lo;
+        } while (i == j);
+        do {
+            k = StdRandom.uniform(hi + 1 - lo) + lo;
+        } while (i == k || j == k);
+        return new int[]{i, j, k};
+    }
+
     private static int min(int[] sample, Double[] a) {
         for (int i = 0; i<sample.length; i++) {
             for (int j = 0; j != i && j < sample.length; j++) {
-                if (a[i] > a[j]) continue;
+                if (a[sample[i]] > a[sample[j]]) continue;
             }
-            return i;
+            return sample[i];
         }
         return -1;
     }
@@ -71,9 +93,9 @@ public class MedianOf3
     private static int max(int[] sample, Double[] a) {
         for (int i = 0; i<sample.length; i++) {
             for (int j = 0; j != i && j < sample.length; j++) {
-                if (a[i] < a[j]) continue;
+                if (a[sample[i]] < a[sample[j]]) continue;
             }
-            return i;
+            return sample[i];
         }
         return -1;
     }
