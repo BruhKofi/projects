@@ -6,20 +6,8 @@ public class MedianOf3
         for (int i = 0; i<N; i++) {
             a[i] = StdRandom.uniform();
         }
-        for (int t = 0; t<8; t++) {
-            int[] s = indices(a, 0, N-1);
-            for (int l = 0; l<s.length; l++) {
-                StdOut.print(s[l] + "\t");
-            }
-            StdOut.println();
-            int i = max(s, a);
-            int j = min(s, a);
-            int k = mid(s, i, j);
-            StdOut.println(a[i] + " " + a[j] + " " + a[k]);
-        }
-        
-        // sort(a);
-        // assert(isSorted(a));
+        sort(a);
+        assert(isSorted(a));
     }
 
     private static boolean isSorted(Double[] a) {
@@ -35,15 +23,29 @@ public class MedianOf3
     }
 
     private static void sort(Double[] a, int lo, int hi) {
-        if (hi <= lo) return;
+        if (hi - lo <= 3) {
+            insertionSort(a, lo, hi);
+            return;
+        }
         int j = partition(a, lo, hi);
         sort(a, lo, j-1);
         sort(a, j+1, hi);
     }
 
+    private static void insertionSort(Double[] a, int lo, int hi) {
+        StdOut.println(lo + " " + hi);
+        for (int i = lo+1; i<=hi; i++) {
+            for (int j = i; j > lo && a[j-1] > a[j]; j--) {
+                StdOut.println(j);
+                exch(a, j-1, j);
+            }
+        }
+    }
+
     private static int partition(Double[] a, int lo, int hi) {
         int p = sample(a, lo, hi);
-        int i = lo+1;
+        StdOut.println(a[lo] + " " + a[p] + " " + a[hi]);
+        int i = lo;
         int j = hi;
         Double v = a[p];
         while (true) {
@@ -57,56 +59,50 @@ public class MedianOf3
     }
 
     private static int sample(Double[] a, int lo, int hi) {
-        int[] sample = indices(a, lo, hi);
-        int min = min(sample, a);
-        int max = max(sample, a);
-        int mid = mid(sample, min, max);
-        exch(a, lo, min);
-        exch(a, hi, max);
-        exch(a, lo+1, mid);
-        return mid;
-    }
-
-    private static int[] indices(Double[] a, int lo, int hi) {
-        int i = StdRandom.uniform(hi + 1 - lo) + lo;
+        StdOut.println(lo + " " + hi);
+        int i = StdRandom.uniform(hi+1-lo) + lo;
         int j = 0;
         int k = 0;
         do {
-            j = StdRandom.uniform(hi + 1 - lo) + lo;
-        } while (i == j);
+            j = StdRandom.uniform(hi+1-lo) + lo;
+        } while(j == i);
         do {
-            k = StdRandom.uniform(hi + 1 - lo) + lo;
-        } while (i == k || j == k);
-        return new int[]{i, j, k};
-    }
-
-    private static int min(int[] sample, Double[] a) {
-        for (int i = 0; i<sample.length; i++) {
-            for (int j = 0; j != i && j < sample.length; j++) {
-                if (a[sample[i]] > a[sample[j]]) continue;
+            k = StdRandom.uniform(hi+1-lo) + lo;
+        } while(k == i || k == j);
+        StdOut.println(i + " " + j + " " + k);
+        StdOut.println(a[i] + " " + a[j] + " " + a[k]);
+        //i min
+        if (a[i] <= a[j] && a[i] <= a[k]) {
+            exch(a, i, lo);
+            //j max
+            if (a[j] >= a[k]) {
+                exch(a, j, hi);
+                return k;
+            } else {//k max
+                exch(a, k, hi);
+                return j;
             }
-            return sample[i];
-        }
-        return -1;
-    }
-
-    private static int max(int[] sample, Double[] a) {
-        for (int i = 0; i<sample.length; i++) {
-            for (int j = 0; j != i && j < sample.length; j++) {
-                if (a[sample[i]] < a[sample[j]]) continue;
+        } else if (a[j] <= a[i] && a[j] <= a[k]) {//j min
+            exch(a, j, lo);
+            if (a[i] >= a[k]) {//i max
+                exch(a, i, hi);
+                return k;
+            } else {
+                exch(a, k, hi);//k max
+                return i;
             }
-            return sample[i];
+        } else {//k min
+            exch(a, k, lo);
+            if (a[i] >= a[j]) {//i max
+                exch(a, i, hi);
+                return j;
+            } else {
+                exch(a, j, hi);//j max
+                return i;
+            }
         }
-        return -1;
     }
 
-    private static int mid(int[] sample, int i, int j) {
-        for (int k = 0; k<sample.length; k++) {
-            if (k != i && k != j) return k;
-        }
-        return -1;
-    }
-        
     private static void exch(Double[] a, int i, int j) {
         Double t = a[i];
         a[i] = a[j];
