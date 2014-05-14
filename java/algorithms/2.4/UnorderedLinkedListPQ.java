@@ -2,7 +2,6 @@ import java.util.NoSuchElementException;
 
 public class UnorderedLinkedListPQ<Key extends Comparable<Key>>
 {
-    private int N;
     private Node first;
 
     private class Node
@@ -16,7 +15,6 @@ public class UnorderedLinkedListPQ<Key extends Comparable<Key>>
         first = new Node();
         first.key = key;
         first.next = oldFirst;
-        N++;
     }
 
     public Key removeMax() {
