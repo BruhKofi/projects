@@ -1,10 +1,10 @@
 public class MyPoint3D implements Comparable<MyPoint3D>
 {
-    private int x;
-    private int y;
-    private int z;
+    private long x;
+    private long y;
+    private long z;
 
-    public MyPoint3D(int x, int y, int z) {
+    public MyPoint3D(long x, long y, long z) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -14,23 +14,23 @@ public class MyPoint3D implements Comparable<MyPoint3D>
          return "(" + x + ", " + y + ", " + z + ")";
     }
 
-    public void setX(int x) {
+    public void setX(long x) {
         this.x = x;
     }
 
-    public int getX() {
+    public long getX() {
         return x;
     }
     
-    public void setY(int y) {
+    public void setY(long y) {
         this.y = y;
     }
 
-    public int getY() {
+    public long getY() {
         return y;
     }
     
-    public void setZ(int z) {
+    public void setZ(long z) {
         this.z = z;
     }
 
@@ -38,5 +38,9 @@ public class MyPoint3D implements Comparable<MyPoint3D>
         if (z < that.z) return -1;
         else if (z > that.z) return +1;
         return 0;
+    }
+
+    public boolean equals(MyPoint3D that) {
+        return z == that.z;
     }
 }
