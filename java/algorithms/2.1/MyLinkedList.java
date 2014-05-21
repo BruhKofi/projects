@@ -26,15 +26,37 @@ public class MyLinkedList
     }
 
     public static void sort(MyLinkedList list) {
+        int M = list.size();
+        sort(list.first);
+    }
 
-        
+    private static void sort(Node lo, Node hi) {
+        if (hi == lo) return;
     }
 
     private static void merge(Node lo, Node mid, Node hi) {
         Node i = lo;
         Node j = mid.next;
-        for (Node x = lo; x != hi; x = x.next) {
-            
+        Node current = lo;
+        while (i != mid.next && j != hi.next) {
+            if (less(j, i)) {
+                Node t = j.next;
+                j.next = i;
+                current.next = j;
+                current = j;
+                j = t;
+            } else if (j == hi.next) {
+                current = i;
+                i = i.next;
+            } else {
+                current.next = j;
+                current = j;
+                j = j.next;
+            }
         }
+    }
+
+    private static boolean less(Node i, Node j) {
+        return i.item < j.item;
     }
 }
