@@ -21,6 +21,7 @@ public class FileSorter
             char c = sort.charAt(i);
             if ('t' == c) Collections.sort(fileList, new FileComparators.modOrder());
             if ('n' == c) Collections.sort(fileList, new FileComparators.nameOrder());
+            if ('s' == c) Collections.sort(fileList, new FileComparators.sizeOrder());
         }
 
         for (File file : fileList) {
