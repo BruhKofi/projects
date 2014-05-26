@@ -6,10 +6,6 @@ public class ArrayInversions
         for (int i = 0; i<N; i++) {
             a[i] = StdRandom.uniform();
         }
-        for (int i = 0; i<N; i++) {
-            StdOut.println(a[i]);
-        }
-        StdOut.println();
         StdOut.println(testInversions(a));
         StdOut.println(insertionInversions(a));
         StdOut.println(inversions(a));
@@ -55,11 +51,13 @@ public class ArrayInversions
 
     private static int inversions(double[] a, double[] aux, int lo, int hi) {
         int cnt = 0;
-        if (hi <= lo) return cnt;
-        int mid = lo + (hi - lo)/2;
-        cnt += inversions(a, aux, lo, mid);
-        cnt += inversions(a, aux, mid+1, hi);
-        return merge(a, aux, lo, mid, hi);
+        if (hi > lo) {
+            int mid = lo + (hi - lo)/2;
+            cnt += inversions(a, aux, lo, mid);
+            cnt += inversions(a, aux, mid+1, hi);
+            cnt +=  merge(a, aux, lo, mid, hi);
+        }
+        return cnt;
     }
 
     private static int merge(double[] a, double[] aux, int lo, int mid, int hi) {
@@ -75,11 +73,10 @@ public class ArrayInversions
             else if (j > hi) a[k] = aux[i++];
             else if (aux[i] < aux[j]) {
                 a[k] = aux[i++];
-                cnt++;
             }
             else {
                 a[k] = aux[j++];
-                cnt++;
+                cnt += (mid + 1 - i);
             }
         }
         return cnt;
