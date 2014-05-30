@@ -1,7 +1,8 @@
 public class MyHeapSort
 {
+    private static int cnt = 0;
     public static void sort(Comparable[] a) {
-        int N = a.length;
+        int N = a.length-1;
         for (int k = N/2; k >= 1; k--) {
             sink(a, k, N);
         }
@@ -12,13 +13,14 @@ public class MyHeapSort
     }
 
     private static void exch(Comparable[] a, int i, int j) {
-        Comparable t = a[i-1];
-        a[i-1] = a[j-1];
-        a[j-1] = t;
+        Comparable t = a[i];
+        a[i] = a[j];
+        a[j] = t;
     }
 
     private static boolean less(Comparable[] a, int i, int j) {
-        return a[i-1].compareTo(a[j-1]) < 0;
+        cnt++;
+        return a[i].compareTo(a[j]) < 0;
     }
 
     private static void swim(Comparable[] a, int k) {
@@ -39,7 +41,7 @@ public class MyHeapSort
     }
 
     private static boolean isSorted(Comparable[] a) {
-        for (int i = 1; i<a.length; i++) {
+        for (int i = 2; i<a.length; i++) {
             if (less(a, i, i-1)) return false;
         }
         return true;
@@ -51,7 +53,9 @@ public class MyHeapSort
         for (int i = 0; i<N; i++) {
             a[i] = StdRandom.uniform();
         }
+        cnt = 0;
         sort(a);
+        StdOut.println(cnt);
         assert(isSorted(a));
     }
 }
