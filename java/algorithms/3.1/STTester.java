@@ -2,7 +2,7 @@ public class STTester
 {
     public static void main(String[] args) {
         int minlen = Integer.parseInt(args[0]);
-        ArrayST<String, Integer> st = new ArrayST<String, Integer>();
+        OrderedSequentialSearchST<String, Integer> st = new OrderedSequentialSearchST<String, Integer>();
         while (!StdIn.isEmpty()) {
             String word = StdIn.readString();
             if (word.length() < minlen) continue;

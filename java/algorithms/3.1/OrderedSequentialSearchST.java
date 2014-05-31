@@ -4,6 +4,8 @@ public class OrderedSequentialSearchST<Key extends Comparable<Key>, Value>
     private int N;
     private Node first;
 
+    private Node lastSearch = new Node();
+
     private class Node
     {
         Key key;
@@ -45,7 +47,11 @@ public class OrderedSequentialSearchST<Key extends Comparable<Key>, Value>
 
     public Value get(Key key) {
         for (Node x = first; x != null; x = x.next) {
-            if (key.compareTo(x.key) == 0) return x.value;
+            if (key.compareTo(x.key) == 0) {
+                lastSearch.key = x.key;
+                lastSearch.value = x.value;
+                return x.value;
+            }
         }
         return null;
     }
@@ -63,7 +69,11 @@ public class OrderedSequentialSearchST<Key extends Comparable<Key>, Value>
 
     public boolean contains(Key key) {
         for (Node x = first; x != null; x = x.next) {
-            if (key.compareTo(x.key) == 0) return true;
+            if (key.compareTo(x.key) == 0) {
+                lastSearch.key = key;
+                lastSearch.value = x.value;
+                return true;
+            }
         }
         return false;
     }
