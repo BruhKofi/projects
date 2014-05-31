@@ -2,7 +2,7 @@ public class STTester
 {
     public static void main(String[] args) {
         int minlen = Integer.parseInt(args[0]);
-        OrderedSequentialSearchST<String, Integer> st = new OrderedSequentialSearchST<String, Integer>();
+        ArrayST<String, Integer> st = new ArrayST<String, Integer>();
         while (!StdIn.isEmpty()) {
             String word = StdIn.readString();
             if (word.length() < minlen) continue;
@@ -17,6 +17,11 @@ public class STTester
                 max = word;
             }
         }
-        StdOut.println(max + " " + st.get(max));
+        int maxOcc = st.get(max);
+        for (String word : st.keys()) {
+            if (st.get(word) == maxOcc) {
+                StdOut.println(word + " " + st.get(word));
+            }
+        }
     }
 }
