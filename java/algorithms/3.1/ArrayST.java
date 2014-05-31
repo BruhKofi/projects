@@ -23,11 +23,24 @@ public class ArrayST<Key extends Comparable<Key>, Value>
     }
 
     public Value get(Key key) {
+        Key foundKey = null;
+        Value foundValue = null;
+        int index = 0;
         for (int i = 0; i<N; i++) {
-            if (key.compareTo(keys[i]) == 0)
-                return vals[i];
+            if (key.compareTo(keys[i]) == 0) {
+                foundKey = key;
+                foundValue = vals[i];
+                index = i;
+                break;
+            }
         }
-        return null;
+        for (int i = index; i > 0; i--) {
+            keys[i] = keys[i-1];
+            vals[i] = vals[i-1];
+        }
+        keys[0] = foundKey;
+        vals[0] = foundValue;
+        return foundValue;
     }
 
     public void delete(Key key) {
