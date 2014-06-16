@@ -150,6 +150,17 @@ public class MyTestBST<Key extends Comparable<Key>, Value>
         return root == null;
     }
 
+    public boolean isBST() {
+        return isBST(root, null, null);
+    }
+
+    private boolean isBST(Node x, Key min, Key max) {
+        if (x == null) return true;
+        if (min != null && min.compareTo(x.key) > 0) return false;
+        if (max != null && max.compareTo(x.key) < 0) return false;
+        return isBST(x.left, min, x.key) && isBST(x.right, x.key, max);
+    }
+
     public static void main(String[] args) {
         MyTestBST<String, String> st = new MyTestBST<String, String>();
         while (!StdIn.isEmpty()) {
