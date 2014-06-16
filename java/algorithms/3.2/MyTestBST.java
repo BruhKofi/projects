@@ -2,6 +2,8 @@ public class MyTestBST<Key extends Comparable<Key>, Value>
 {
     private Node root;
 
+    private Node prev;
+
     private class Node
     {
         private Key key;
@@ -32,7 +34,10 @@ public class MyTestBST<Key extends Comparable<Key>, Value>
         int cmp = key.compareTo(x.key);
         if (cmp < 0) return get(x.left, key);
         else if (cmp > 0) return get(x.right, key);
-        else return x.value;
+        else {
+            prev = x;
+            return x.value;
+        }
     }
 
     public void put(Key key, Value value) {
@@ -40,11 +45,17 @@ public class MyTestBST<Key extends Comparable<Key>, Value>
     }
 
     private Node put(Node x, Key key, Value value) {
-        if (x == null) return new Node(key, value, 1);
+        if (x == null) {
+            prev = new Node(key, value, 1);
+            return prev;
+        }
         int cmp = key.compareTo(x.key);
         if (cmp < 0) x.left = put(x.left, key, value);
         else if (cmp > 0) x.right = put(x.right, key, value);
-        else x.value = value;
+        else {
+            x.value = value;
+            prev = x;
+        }
         x.N = size(x.left) + size(x.right) + 1;
         return x;
     }
