@@ -1,3 +1,4 @@
+import java.lang.IllegalArgumentException;
 public class MyGraph
 {
     private Bag<Integer>[] adj;
@@ -22,10 +23,31 @@ public class MyGraph
         }
     }
 
+    public MyGraph(MyGraph G) {
+        this(G.V());
+        for (int v = 0; v<G.V(); v++) {
+            for (int w : G.adj(v)) addEdgeInternal(v, w);
+        }
+        this.E /= 2;
+    }
+        
+
     public void addEdge(int v, int w) {
+        if (v == w) throw new IllegalArgumentException("self loops are disallowed");
+        for (int k : adj[v]) if (k == w) throw new IllegalArgumentException("parallel edges are disallowed");
         adj[v].add(w);
         adj[w].add(v);
         E++;
+    }
+
+    private void addEdgeInternal(int v, int w) {
+        adj[v].add(w);
+        E++;
+    }
+
+    public boolean hasEdge(int v, int w) {
+        for (int k : adj[v]) if (k == w) return true;
+        return false;
     }
 
     public int V() {
@@ -53,6 +75,14 @@ public class MyGraph
 
     public static void main(String[] args) {
         MyGraph G = new MyGraph(new In(args[0]));
-        StdOut.println(G.toString());
+        while (!StdIn.isEmpty()) {
+            int v = StdIn.readInt();
+            int w = StdIn.readInt();
+            try {
+                G.addEdge(v, w);
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
