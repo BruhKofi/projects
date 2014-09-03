@@ -5,6 +5,7 @@ public class MyGraphProperties
     private int diameter;
     private int radius;
     private int center;
+    private int wienerIndex;
 
     public MyGraphProperties(MyGraph G) {
         MyConnectedComponents cc = new MyConnectedComponents(G);
@@ -21,10 +22,12 @@ public class MyGraphProperties
             MyBreadthFirstPaths bfs = new MyBreadthFirstPaths(G, v);
             int eccen = Integer.MIN_VALUE;
             for (int w = 0; w<G.V(); w++) {
+                wienerIndex += bfs.distTo(w);
                 if (bfs.distTo(w) > eccen) eccen = bfs.distTo(w);
             }
             eccentricity[v] = eccen;
         }
+        wienerIndex /= 2;
     }
 
     private void findDiameter() {
@@ -57,12 +60,17 @@ public class MyGraphProperties
         return center;
     }
 
+    public int wiener() {
+        return wienerIndex;
+    }
+
     public static void main(String[] args) {
         MyGraph G = new MyGraph(new In(args[0]));
         MyGraphProperties gp = new MyGraphProperties(G);
         StdOut.println("Diameter: " + gp.diameter());
         StdOut.println("Radius: " + gp.radius());
         StdOut.println("Center: " + gp.center());
+        StdOut.println("Wiener Index: " + gp.wiener());
     }
 }
     
