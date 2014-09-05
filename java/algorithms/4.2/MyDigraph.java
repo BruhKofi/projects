@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+import java.lang.IndexOutOfBoundsException;
 public class MyDigraph
 {
     private Bag<Integer>[] adj;
@@ -40,6 +42,10 @@ public class MyDigraph
     }
 
     public void addEdge(int v, int w) {
+        if (v == w) throw new IllegalArgumentException("self loops are disallowed");
+        if (hasEdge(v, w)) throw new IllegalArgumentException("parallel edges are disallowed");
+        if (v < 0 || v >= V) throw new IndexOutOfBoundsException("vertex must be between " + 0 + " and " + (V-1));
+        if (w < 0 || w >= V) throw new IndexOutOfBoundsException("vertex must be between " + 0 + " and " + (V-1));
         adj[v].add(w);
         E++;
     }
