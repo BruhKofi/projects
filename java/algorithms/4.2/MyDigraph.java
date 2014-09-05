@@ -22,6 +22,15 @@ public class MyDigraph
         }
     }
 
+    public MyDigraph(MyDigraph G) {
+        this(G.V());
+        for (int v = 0; v<G.V(); v++) {
+            for (int w : G.adj(v)) {
+                addEdge(v, w);
+            }
+        }
+    }
+
     public int V() {
         return V;
     }
@@ -65,6 +74,6 @@ public class MyDigraph
         MyDigraph G = new MyDigraph(new In(args[0]));
         StdOut.println(G);
         StdOut.println();
-        StdOut.println(G.reverse());
+        StdOut.println(new MyDigraph(G));
     }
-}        
+}
