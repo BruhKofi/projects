@@ -35,4 +35,10 @@ public class MyKosarajuSharir
     public int id(int v) {
         return id[v];
     }
+
+    public static void main(String[] args) {
+        MyDigraph G = new MyDigraph(new In(args[0]));
+        MyKosarajuSharir scc = new MyKosarajuSharir(G);
+        StdOut.println(scc.count());
+    }
 }
