@@ -58,6 +58,11 @@ public class MyDigraph
         return R;
     }
 
+    public boolean hasEdge(int v, int w) {
+        for (int k : adj(v)) if (w == k) return true;
+        return false;
+    }
+
     public String toString() {
         StringBuilder s = new StringBuilder(V + " vertices " + E + " edges\n");
         for (int v = 0; v<V; v++) {
@@ -75,5 +80,6 @@ public class MyDigraph
         StdOut.println(G);
         StdOut.println();
         StdOut.println(new MyDigraph(G));
+        StdOut.println(G.hasEdge(0, 5));
     }
 }
