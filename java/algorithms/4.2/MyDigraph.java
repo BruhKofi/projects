@@ -69,6 +69,28 @@ public class MyDigraph
         return false;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (this.getClass() != obj.getClass()) return false;
+        MyDigraph that = (MyDigraph) obj;
+        if (V() != that.V()) return false;
+        if (E() != that.E()) return false;
+        for (int v = 0; v<V(); v++) {
+            for (int w : adj(v)) {
+                boolean match = false;
+                for (int k : that.adj(v)) {
+                    if (w == k) {
+                        match = true;
+                        break;
+                    }
+                }
+                if (!match) return false;
+            }
+        }
+        return true;
+    }
+
     public String toString() {
         StringBuilder s = new StringBuilder(V + " vertices " + E + " edges\n");
         for (int v = 0; v<V; v++) {
