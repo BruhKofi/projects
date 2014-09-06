@@ -9,7 +9,6 @@ public class MyKosarajuSharir
         marked = new boolean[G.V()];
         MyDigraph R = G.reverse();
         MyDepthFirstOrder order = new MyDepthFirstOrder(R);
-        assert(R.isTopoOrder(order.reversePost()));
         for (int v : order.reversePost()) {
             if (!marked[v]) {
                 dfs(G, v);
