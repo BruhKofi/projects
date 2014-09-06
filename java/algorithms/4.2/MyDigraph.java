@@ -33,6 +33,18 @@ public class MyDigraph
         }
     }
 
+    public boolean isTopoOrder(Iterable<Integer> order) {
+        int[] topoOrder = new int[V()];
+        int i = 0;
+        for (int w : order) topoOrder[i++] = w;
+        for (int v = 0; v<V(); v++) {
+            for (int w = v+1; w<V(); w++) {
+                if (hasEdge(topoOrder[w], topoOrder[v])) return false;
+            }
+        }
+        return true;
+    }
+            
     public int V() {
         return V;
     }
