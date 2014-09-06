@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 public class MyDirectedShortestPaths
 {
     private boolean marked[];
@@ -43,6 +44,14 @@ public class MyDirectedShortestPaths
     public boolean hasPathTo(int v) {
         return marked[v];
     }
+
+    public int distTo(int v) {
+        if (!hasPathTo(v)) throw new NoSuchElementException("No path from " + s + " to " + v);
+        int d = 0;
+        for (int w : pathTo(v)) d++;
+        return d;
+    }
+        
 
     public static void main(String[] args) {
         MyDigraph G = new MyDigraph(new In(args[0]));
