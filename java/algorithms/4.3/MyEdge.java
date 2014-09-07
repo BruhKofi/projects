@@ -29,6 +29,6 @@ public class MyEdge implements Comparable<MyEdge>
     }
 
     public String toString() {
-        return String.format("%d-%d %0.5f", v, w, weight);
+        return String.format("%d-%d %.5f", v, w, weight);
     }
 }
