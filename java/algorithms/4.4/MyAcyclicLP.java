@@ -5,7 +5,7 @@ public class MyAcyclicLP
 
     public MyAcyclicLP(MyDirectedEdgeWeightedGraph G, int s) {
         EdgeWeightedCycleFinder C = new EdgeWeightedCycleFinder(G);
-        if (C.hasCycle()) throw new IllegalArgumentException("Input must be acyclic");
+
 
         distTo = new double[G.V()];
         for (int v = 0; v<G.V(); v++) distTo[v] = Double.NEGATIVE_INFINITY;
