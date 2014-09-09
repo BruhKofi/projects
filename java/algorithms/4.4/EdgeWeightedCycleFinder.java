@@ -24,9 +24,11 @@ public class EdgeWeightedCycleFinder
                 dfs(G, w);
             } else if (onStack[w]) {
                 cycle = new Stack<MyDirectedEdge>();
-                for (MyDirectedEdge x = edgeTo[w]; x != null; x = edgeTo[x.from()]) {
-                    cycle.push(x);
+                while (e.from() != w) {
+                    cycle.push(e);
+                    e = edgeTo[e.from()];
                 }
+                cycle.push(e);
             }
         }
         onStack[v] = false;
