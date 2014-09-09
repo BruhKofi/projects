@@ -32,10 +32,9 @@ public class MyEuclideanGraph
         for (Point2D p : st.keys()) {
             keys[st.get(p)] = p;
         }
-
     }
 
-    public void addEdge(Point2D v, Point2D p) {
+    private void addEdge(Point2D v, Point2D p) {
         adj[st.get(v)].add(p);
         adj[st.get(p)].add(v);
         E++;

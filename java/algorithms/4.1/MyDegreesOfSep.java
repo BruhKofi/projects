@@ -19,6 +19,7 @@ public class MyDegreesOfSep
             if (sg.contains(sink)) {
                 int t = sg.index(sink);
                 if (bfs.hasPathTo(t)) {
+                    StdOut.println(bfs.distTo(t)/2-1);
                     for (int v : bfs.pathTo(t)) {
                         StdOut.println("    " + sg.name(v));
                     }

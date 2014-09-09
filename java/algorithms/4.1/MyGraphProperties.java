@@ -2,13 +2,14 @@ import java.util.InputMismatchException;
 public class MyGraphProperties
 {
     private int[] eccentricity;
+    MyConnectedComponents cc;
     private int diameter;
     private int radius;
     private int center;
     private int wienerIndex;
 
     public MyGraphProperties(MyGraph G) {
-        MyConnectedComponents cc = new MyConnectedComponents(G);
+        cc = new MyConnectedComponents(G);
         if (cc.count() != 1) throw new InputMismatchException("Graph must be connected");
         eccentricity = new int[G.V()];
         eccentricities(G);
@@ -62,6 +63,10 @@ public class MyGraphProperties
 
     public int wiener() {
         return wienerIndex;
+    }
+
+    public int components() {
+        return cc.count();
     }
 
     public static void main(String[] args) {

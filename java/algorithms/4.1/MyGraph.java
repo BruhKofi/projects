@@ -33,14 +33,14 @@ public class MyGraph
         
 
     public void addEdge(int v, int w) {
-        if (v == w) throw new IllegalArgumentException("self loops are disallowed");
-        for (int k : adj[v]) if (k == w) throw new IllegalArgumentException("parallel edges are disallowed");
+        //        if (v == w) throw new IllegalArgumentException("self loops are disallowed");
+        //        for (int k : adj[v]) if (k == w) throw new IllegalArgumentException("parallel edges are disallowed");
         adj[v].add(w);
         adj[w].add(v);
         E++;
     }
 
-    private void addEdgeInternal(int v, int w) {
+    public void addEdgeInternal(int v, int w) {
         adj[v].add(w);
         E++;
     }

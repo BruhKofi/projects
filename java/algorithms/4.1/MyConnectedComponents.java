@@ -3,6 +3,7 @@ public class MyConnectedComponents
     private boolean[] marked;
     private int count;
     private int[] id;
+    private int[] sz;
 
     public MyConnectedComponents(MyGraph G) {
         marked = new boolean[G.V()];
@@ -13,6 +14,7 @@ public class MyConnectedComponents
                 count++;
             }
         }
+        getSizes();
     }
 
     private void dfs(MyGraph G, int s) {
@@ -20,6 +22,13 @@ public class MyConnectedComponents
         id[s] = count;
         for (int w : G.adj(s)) {
             if (!marked[w]) dfs(G, w);
+        }
+    }
+
+    private void getSizes() {
+        sz = new int[count];
+        for (int i = 0; i<id.length; i++) {
+            sz[id[i]]++;
         }
     }
 
@@ -33,6 +42,10 @@ public class MyConnectedComponents
 
     public int count() {
         return count;
+    }
+
+    public int size(int w) {
+        return sz[id[w]];
     }
 
     public static void main(String[] args) {
