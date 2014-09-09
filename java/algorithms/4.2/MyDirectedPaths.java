@@ -30,6 +30,7 @@ public class MyDirectedPaths
         return stack;
     }
 
+
     public boolean reachable(int v) {
         return marked[v];
     }
