@@ -19,8 +19,8 @@ public class DirectedDepthFirstOrder
     }
 
     private void dfs(MyDirectedEdgeWeightedGraph G, int v) {
-        marked[v] = true;
         pre.enqueue(v);
+        marked[v] = true;
         for (MyDirectedEdge e : G.adj(v)) {
             int w = e.to();
             if (!marked[w]) {
