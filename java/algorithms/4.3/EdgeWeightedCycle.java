@@ -3,8 +3,10 @@ public class EdgeWeightedCycle
     private boolean[] marked;
     private int[] edgeTo;
     private Stack<Integer> cycle;
+    MyEdgeWeightedGraph G;
     
     public EdgeWeightedCycle(MyEdgeWeightedGraph G) {
+        this.G = G;
         marked = new boolean[G.V()];
         edgeTo = new int[G.V()];
         for (int v = 0; v<G.V(); v++) {
@@ -39,6 +41,19 @@ public class EdgeWeightedCycle
         return cycle != null;
     }
 
-    public Iterable<> cycle {
+    public Iterable<MyEdge> cycle {
+        if (!hasCycle()) return null;
+        Queue<MyEdge> edges = new Queue<MyEdge>();
+        Iterator<Integer> itr = cycle.iterator();
+        int last;
+        while (itr.hasNext()) {
+            int v = itr.next();
+            if (itr.hasNext()) {
+                int w = itr.next();
+                edges.enqueue(G.getEdge(v, w));
+            }
+        }
+        
+            
     }
 }
