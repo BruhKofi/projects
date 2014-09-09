@@ -37,6 +37,13 @@ public class MyEdgeWeightedGraph
         return E;
     }
 
+    public MyEdge getEdge(int v, int w) {
+        for (MyEdge e : adj(v)) {
+            if (e.other(v) == w) return e;
+        }
+        return null;
+    }
+
     public Iterable<MyEdge> adj(int v) {
         return adj[v];
     }
