@@ -60,7 +60,7 @@ public class MyLSD
         for (int i = 0; i<N; i++) {
             a[i] = randString(W);
         }
-        sort(a, W);
+        sort(a);
         for (String s : a) StdOut.println(s);
     }
 }
