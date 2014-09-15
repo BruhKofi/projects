@@ -38,20 +38,16 @@ public class MyMSD
         for (int i = lo; i<=hi; i++) aux[count[charAt(a[i], d) + 1]++] = a[i];
 
         //Copy back
-        for (int i = lo; i<=hi; i++) a[i] = aux[i];
+        for (int i = lo; i<=hi; i++) a[i] = aux[i-lo];
 
         //Recurse
         for (int r = 0; r<R; r++) sort(a, lo + count[r], lo + count[r+1] - 1, d+1);
     }
 
     public static void main(String[] args) {
-        int N = Integer.parseInt(args[0]);
-        int W = Integer.parseInt(args[1]);
-
-        String[] a = new String[N];
-
-        for (int i = 0; i<N; i++) a[i] = randLenString(W);
+        String[] a = StdIn.readAll().split("\\s+");
+        Stopwatch sw = new Stopwatch();
         sort(a);
-        for (String s : a) StdOut.println(s);
+        StdOut.println(sw.elapsedTime());
     }
 }
