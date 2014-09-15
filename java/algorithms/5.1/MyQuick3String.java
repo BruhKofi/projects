@@ -35,10 +35,9 @@ public class MyQuick3String
 
     public static void main(String[] args) {
         String[] a = StdIn.readAll().split("\\s+");
+        Stopwatch sw = new Stopwatch();
         sort(a);
-        for (String s : a) {
-            StdOut.println(s);
-        }
+        StdOut.println(sw.elapsedTime());
     }
 }
             
