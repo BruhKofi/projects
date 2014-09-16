@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 public class MyTrie<Value>
 {
     private static final int R = 256;
@@ -112,6 +113,62 @@ public class MyTrie<Value>
         return q;
     }
 
+    public String floor(String key) {
+        int M = key.length();
+        StringBuilder outer = new StringBuilder();
+        StringBuilder inner = new StringBuilder();
+        Node x = root;
+        for (int i = 0; i<M; i++) {
+            for (char c = key.charAt(i); c >= 0; c--) {
+                if (x.next[c] != null) {
+                    inner.append(c);
+                    x = x.next[c];
+                    if (x.val != null) {
+                        outer.append(inner);
+                        inner = new StringBuilder();
+                    }
+                    break;
+                }
+                if (c == 0) return new String(outer);
+            }
+        }
+        return new String(outer);
+    }
+                
+
+    public String min() {
+        if (isEmpty()) throw new NoSuchElementException();
+        Node x = root;
+        StringBuilder sb = new StringBuilder();
+        while (true) {
+            for (char c = 0; c<R; c++) {
+                if (x.next[c] != null) {
+                    sb.append(String.valueOf(c));
+                    x = x.next[c];
+                    break;
+                }
+                if (c == R-1) return new String(sb);
+            }
+        }
+    }
+
+    public String max() {
+        if (isEmpty()) throw new NoSuchElementException();
+        Node x = root;
+        StringBuilder sb = new StringBuilder();
+        while (true) {
+            for (char c = R-1; c>=0; c--) {
+                if (x.next[c] != null) {
+                    sb.append(String.valueOf(c));
+                    x = x.next[c];
+                    break;
+                }
+                if (c == 0) return new String(sb);
+            }
+        }
+    }
+        
+
     public static void main(String[] args) {
         MyTrie<Integer> t = new MyTrie<Integer>();
         String[] a = (new In(args[0])).readAll().split("\\s+");
@@ -119,7 +176,7 @@ public class MyTrie<Value>
         for (String s : a) t.put(s, i++);
         while (!StdIn.isEmpty()) {
             String s = StdIn.readString();
-            for (String match : t.keysWithPrefix(s)) StdOut.println(match);
+            StdOut.println(t.floor(s));
         }
     }
 }
