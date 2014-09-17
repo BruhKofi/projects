@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 public class HybridTST<Value>
 {
     private static final int R = 256;
@@ -9,6 +10,10 @@ public class HybridTST<Value>
         private char c;
         private Node left, mid, right;
         private Object val;
+
+        public String toString() {
+            return c + ": " + val;
+        }
     }
 
     public boolean isEmpty() {
@@ -67,6 +72,69 @@ public class HybridTST<Value>
         return get(key) != null;
     }
 
+    public String firstKey() {
+        if (isEmpty()) throw new NoSuchElementException("symbol table is empty");
+        StringBuilder sb = new StringBuilder();
+        char c = 0;
+        while (root[c] == null) c++;
+        min(root[c], sb);
+        return sb.toString();
+    }
+
+    private void min(Node x, StringBuilder sb) {
+        if (x == null) return;
+        if (x.left != null) min(x.left, sb);
+        sb.append(x.c);
+        if (x.mid != null) min(x.mid, sb);
+        if (x.right != null) min(x.right, sb);
+    }
+
+    public String lastKey() {
+        if (isEmpty()) throw new NoSuchElementException("symbol table is empty");
+        StringBuilder sb = new StringBuilder();
+        char c = R-1;
+        while (root[c] == null) c--;
+        max(root[c], sb);
+        return sb.toString();
+    }
+
+    private void max(Node x, StringBuilder sb) {
+        if (x == null) return;
+        if (x.right != null) max(x.right, sb);
+        sb.append(x.c);
+        if (x.mid != null) max(x.mid, sb);
+        if (x.left != null) max(x.left, sb);
+    }
+
+    public void delete(String key) {
+        if (key == null || key.isEmpty()) throw new IllegalArgumentException("Key must be a non-empty String");
+        char c = key.charAt(0);
+        root[c] = delete(root[c], key, 1);
+    }
+
+    private Node delete(Node x, String key, int d) {
+        StdOut.println(x + ": " + x.left + ": " + x.mid + ": " + x.right);
+        if (x == null) return null;
+        if (d == key.length()) {
+            if (x.val != null) N--;
+            x.val = null;
+        } else {
+            char c = key.charAt(d);
+            if (c < x.c) x.left = delete(x.left, key, d);
+            else if (c > x.c) x.right = delete(x.right, key, d);
+            else x.mid = delete(x.mid, key, d+1);
+        }
+        //        StdOut.println(x);
+        if (x.val != null || x.mid != null) return x;
+        if (x.left == null) return x.right;
+        if (x.right == null) return x.left;
+        if (x.right != null && x.left != null) {
+            if (x.right.c - x.c > x.c - x.left.c) return x.left;
+            else return x.right;
+        }
+        return null;
+    }
+    
     public Iterable<String> keys() {
         Queue<String> q = new Queue<String>();
         for (char c = 0; c<R; c++) {
@@ -90,8 +158,9 @@ public class HybridTST<Value>
             if (tst.contains(s)) tst.put(s, tst.get(s) + 1);
             else tst.put(s, 1);
         }
-        for (String s : tst.keys()) {
-            StdOut.println(s + ": " + tst.get(s));
-        }
+        //        for (String s : tst.keys()) StdOut.println(s + ": " + tst.get(s));
+        StdOut.println();
+        tst.delete("sea");
+        //        for (String t : tst.keys()) StdOut.println(t + ": " + tst.get(t));
     }
 }
