@@ -9,9 +9,9 @@ public class TrieTester
             if (treeMap.containsKey(s)) treeMap.put(s, treeMap.get(s)+1);
             else treeMap.put(s, 1);
         }
-        // for (String s : treeMap.keySet()) {
-        //     trie.put(s, treeMap.get(s));
-        // }
+        for (String s : treeMap.keySet()) {
+            trie.put(s, treeMap.get(s));
+        }
 
         in = new In(args[1]);
         Stopwatch sw = new Stopwatch();
@@ -23,14 +23,14 @@ public class TrieTester
         }
         StdOut.println("Tree map took : " + sw.elapsedTime());
 
-        // in = new In(args[1]);
-        // sw = new Stopwatch();
-        // while (!in.isEmpty()) {
-        //     String s = in.readString();
-        //     if (trie.contains(s)) {
-        //         int t = trie.get(s);
-        //     }
-        // }
-        // StdOut.println("Trie took : " + sw.elapsedTime());
+        in = new In(args[1]);
+        sw = new Stopwatch();
+        while (!in.isEmpty()) {
+            String s = in.readString();
+            if (trie.contains(s)) {
+                int t = trie.get(s);
+            }
+        }
+        StdOut.println("Trie took : " + sw.elapsedTime());
     }
 }
