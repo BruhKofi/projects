@@ -8,6 +8,7 @@ public class MyTrie<Value>
     {
         private Object val;
         private Node[] next = new Node[R];
+        private int N;
     }
 
     public Value get(String key) {
@@ -30,12 +31,26 @@ public class MyTrie<Value>
     private Node put(Node x, String key, Value val, int d) {
         if (x == null) x = new Node();
         if (key.length() == d) {
+            if (x.val == null) x.N++;
             x.val = val;
             return x;
         }
         char c = key.charAt(d);
         x.next[c] = put(x.next[c], key, val, d+1);
+        int sz = 0;
+        for (char m = 0; m<R; m++) sz += size(x.next[m]);
+        x.N = sz;
+        if (x.val != null) x.N++;
         return x;
+    }
+
+    public int size() {
+        return size(root);
+    }
+
+    private int size(Node x) {
+        if (x ==  null) return 0;
+        return x.N;
     }
 
     public void delete(String key) {
@@ -173,10 +188,9 @@ public class MyTrie<Value>
         MyTrie<Integer> t = new MyTrie<Integer>();
         String[] a = (new In(args[0])).readAll().split("\\s+");
         int i = 0;
-        for (String s : a) t.put(s, i++);
-        while (!StdIn.isEmpty()) {
-            String s = StdIn.readString();
-            StdOut.println(t.floor(s));
+        for (String s : a) {
+            t.put(s, i++);
+            StdOut.println(t.size());
         }
     }
 }
