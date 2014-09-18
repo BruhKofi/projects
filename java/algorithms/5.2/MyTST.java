@@ -91,8 +91,5 @@ public class MyTST<Value>
             t.put(s, i++);
             StdOut.println(t.size());
         }
-        while (!StdIn.isEmpty()) {
-            StdOut.println(t.longestPrefixOf(StdIn.readString()));
-        }
     }
 }
