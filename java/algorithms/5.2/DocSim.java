@@ -31,9 +31,25 @@ public class DocSim
 
     public static void main(String[] args) {
         int k = Integer.parseInt(args[0]);
-        String f1 = args[1];
-        String f2 = args[2];
-        double dist = dist(f1, f2, k);
-        StdOut.println(dist);
+        int N = args.length-1;
+        String[] files = new String[N];
+        for (int i = 1; i<args.length; i++) files[i-1] = args[i];
+        double[][] matrix = new double[N][N];
+        for (int i = 0; i<N; i++) {
+            for (int j = i; j<N; j++) {
+                matrix[i][j] = dist(files[i], files[j], k);
+                matrix[j][i] = matrix[i][j];
+            }
+        }
+        StdOut.print("\t\t");
+        for (String fileName : files) StdOut.print(fileName + "\t");
+        StdOut.println();
+        for (int i = 0; i<N; i++) {
+            StdOut.print(files[i] + "\t");
+            for (int j = 0; j<N; j++) {
+                StdOut.printf("%.4f\t\t", matrix[i][j]);
+            }
+            StdOut.println();
+        }
     }
 }
