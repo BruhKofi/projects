@@ -7,6 +7,7 @@ public class MyTST<Value>
         private char c;
         private Node left, mid, right;
         private Value val;
+        private int N;
     }
 
     public Value get(String key) {
@@ -37,8 +38,22 @@ public class MyTST<Value>
         if (c < x.c) x.left = put(x.left, key, val, d);
         else if (c > x.c) x.right = put(x.right, key, val, d);
         else if (d < key.length() -1) x.mid = put(x.mid, key, val, d+1);
-        else x.val = val;
+        else {
+            if (x.val == null) x.N++;
+            x.val = val;
+        }
+        x.N = size(x.left) + size(x.mid) + size(x.right);
+        if (x.val != null) x.N++;
         return x;
+    }
+
+    public int size() {
+        return size(root);
+    }
+
+    private int size(Node x) {
+        if (x == null) return 0;
+        return x.N;
     }
 
     public boolean contains(String s) {
@@ -72,13 +87,12 @@ public class MyTST<Value>
         MyTST<Integer> t = new MyTST<Integer>();
         String[] a = (new In(args[0])).readAll().split("\\s+");
         int i = 0;
-        for (String s : a) t.put(s, i++);
+        for (String s : a) {
+            t.put(s, i++);
+            StdOut.println(t.size());
+        }
         while (!StdIn.isEmpty()) {
             StdOut.println(t.longestPrefixOf(StdIn.readString()));
         }
-        // while (!StdIn.isEmpty()) {
-        //     String s = StdIn.readString();
-        //     for (String match : t.keysWithPrefix(s)) StdOut.println(match);
-        // }
     }
 }
