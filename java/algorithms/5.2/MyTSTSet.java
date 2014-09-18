@@ -42,6 +42,22 @@ public class MyTSTSet
         if (c < x.c) return contains(x.left, key, d);
         else if (c > x.c) return contains(x.right, key, d);
         else if (d < key.length()-1) return contains(x.mid, key, d+1);
+        else if (d == key.length()-1 && x.flag == -1) return true;
+        else return false;
+    }
+
+    public boolean containsPrefix(String key) {
+        if (key == null) throw new NullPointerException("Null keys are disallowed");
+        if (key.isEmpty()) throw new IllegalArgumentException("Key must be non-empty string");
+        return containsPrefix(root, key, 0);
+    }
+
+    private boolean containsPrefix(Node x, String key, int d) {
+        if (x == null) return false;
+        char c = key.charAt(d);
+        if (c < x.c) return containsPrefix(x.left, key, d);
+        else if (c > x.c) return containsPrefix(x.right, key, d);
+        else if (d < key.length()-1) return containsPrefix(x.mid, key, d+1);
         else if (d == key.length()-1) return true;
         else return false;
     }
@@ -77,7 +93,9 @@ public class MyTSTSet
         StdOut.println(set.size());
         for (String s : set.keys()) StdOut.println(s);
         while (!StdIn.isEmpty()) {
-            StdOut.println(set.contains(StdIn.readString()));
+            String s = StdIn.readString();
+            StdOut.println(set.contains(s));
+            StdOut.println(set.containsPrefix(s));
         }
     }
 }
