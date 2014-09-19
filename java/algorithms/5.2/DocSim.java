@@ -5,11 +5,21 @@ public class DocSim
         TST<Double> tst2 = buildTST(f2, k);
         double dist = 0.0;
         for (String s : tst1.keys()) {
+            Double p = tst1.get(s);
+            if (p == null) continue;
             if (tst1.contains(s)) {
-                Double p = tst1.get(s);
                 Double q = tst2.get(s);
-                if (p == null || q == null) continue;
+                if (q == null) continue;
                 dist += ((p - q)*(p - q));
+            } else {
+                dist += (p*p);
+            }
+        }
+        for (String s : tst2.keys()) {
+            Double p = tst2.get(s);
+            if (p == null) continue;
+            if (!tst1.contains(s)) {
+                dist += (p*p);
             }
         }
         return Math.sqrt(dist);
