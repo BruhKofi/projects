@@ -30,6 +30,28 @@ public class SubstringSearches
         if (j == M) return i-M;
         return N;
     }
+
+    public static int BM(String pat, String txt) {
+        int N = txt.length(), M = pat.length();
+        final int R = 256;
+        int[] right = new int[R];
+        for (int i = 0; i<R; i++) right[i] = -1;
+        for (int j = 0; j<M; j++) right[pat.charAt(j)] = j;
+
+        int skip = 0;
+        for (int i = 0; i<=N-M; i+= skip) {
+            skip = 0;
+            for (int j = M-1; j>=0; j--) {
+                if (txt.charAt(i+j) != pat.charAt(j)) {
+                    skip = j - right[txt.charAt(j+i)];
+                    if (skip < 0) skip = 1;
+                    break;
+                }
+            }
+            if (skip == 0) return i;
+        }
+        return N;
+    }
         
 
     public static void main(String[] args) {
