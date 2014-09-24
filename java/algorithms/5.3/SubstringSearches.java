@@ -55,7 +55,7 @@ public class SubstringSearches
 
     public static int RabinKarp(String pat, String txt) {
         int N = txt.length(), M = pat.length();
-        long Q = 997;//longRandomPrime();
+        long Q = longRandomPrime();
         int R = 256;
         long patHash = hash(pat, M, R, Q);
         long RM = 1;
@@ -101,6 +101,9 @@ public class SubstringSearches
         
 
     public static void main(String[] args) {
-        StdOut.println(longRandomPrime());
+        String pat = args[0];
+        String txt = args[1];
+        int i = RabinKarp(pat, txt);
+        StdOut.println(i);
     }
 }
