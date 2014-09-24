@@ -52,13 +52,55 @@ public class SubstringSearches
         }
         return N;
     }
+
+    public static int RabinKarp(String pat, String txt) {
+        int N = txt.length(), M = pat.length();
+        long Q = 997;//longRandomPrime();
+        int R = 256;
+        long patHash = hash(pat, M, R, Q);
+        long RM = 1;
+        for (int i = 1; i<=M-1; i++) RM = (R*RM)%Q;
+        long txtHash = hash(txt, M, R, Q);
+        if (patHash == txtHash) return 0;
+        for (int i = M; i<N; i++) {
+            txtHash = (txtHash + Q - (RM*txt.charAt(i-M)) % Q) % Q;
+            txtHash = (txtHash*R + txt.charAt(i)) % Q;
+            if (patHash == txtHash) return i-M+1;
+        }
+        return N;
+    }
+
+    private static long longRandomPrime() {
+        long L = Long.MAX_VALUE;
+        long r = 0;
+        do {
+            double d = Math.random();
+            r = (long)(d*L)+1;
+        } while (r % 2 == 0 || !isPrime(r));
+        return r;
+    }
+
+    private static boolean isPrime(long l) {
+        if (l < 2) return false;
+        if (l == 2) return true;
+        if (l == 3) return true;
+        for (long i = 2; i*i<=l; i++) {
+            if (l % i == 0) return false;
+        }
+        return true;
+    }
+    
+
+    private static long hash(String key, int M, int R, long Q) {
+        long h = 0;
+        for (int i = 0; i<M; i++) {
+            h = (h*R + key.charAt(i)) % Q;
+        }
+        return h;
+    }
         
 
     public static void main(String[] args) {
-        String pat = args[0];
-        String txt = args[1];
-        int i = KMP(pat, txt);
-        StdOut.println(i);
-        StdOut.println(txt.substring(i, i+pat.length()));
+        StdOut.println(longRandomPrime());
     }
 }
