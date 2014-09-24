@@ -30,7 +30,7 @@ public class MyGrep
         }
     }
 
-    public boolean recognize(String txt) {
+    public boolean recognizes(String txt) {
         Bag<Integer> pc = new Bag<Integer>();
         DirectedDFS dfs = new DirectedDFS(G, 0);
         for (int v = 0; v<G.V(); v++) if (dfs.marked(v)) pc.add(v);
@@ -39,7 +39,7 @@ public class MyGrep
             Bag<Integer> match = new Bag<Integer>();
             for (int v : pc) {
                 if (v < M) {
-                    if (re[v] == txt.charAt(i) || re[v] == '.') match.add(i+1);
+                    if (re[v] == txt.charAt(i) || re[v] == '.') match.add(v+1);
                 }
             }
             pc = new Bag<Integer>();
@@ -51,11 +51,11 @@ public class MyGrep
     }
 
     public static void main(String[] args) {
-        String regex = args[0];
+        String regexp = "(" + args[0] + ")";
         String txt = args[1];
-
-        MyGrep grep = new MyGrep(regex);
-
-        StdOut.println(grep.recognize(txt));
+        MyGrep grep = new MyGrep(regexp);
+        NFA nfa = new NFA(regexp);
+        StdOut.println(nfa.recognizes(txt));
+        StdOut.println(grep.recognizes(txt));
     }
 }
