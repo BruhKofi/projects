@@ -1,0 +1,200 @@
+\documentclass[letterpaper,11pt]{article}
+
+%-----------------------------------------------------------
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage[pdftex]{hyperref}
+\usepackage{microtype}
+\usepackage{multicol}
+\hypersetup{
+    colorlinks,%
+    citecolor=black,%
+    filecolor=black,%
+    linkcolor=black,%
+    urlcolor=mygreylink     % can put red here to visualize the links
+}
+\urlstyle{same}
+\definecolor{mygrey}{gray}{.85}
+\definecolor{mygreylink}{gray}{.30}
+\textheight=9.0in
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+\renewcommand{\familydefault}{\sfdefault}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.375in}
+\addtolength{\evensidemargin}{0.375in}
+\addtolength{\textwidth}{0.5in}
+\addtolength{\topmargin}{-.375in}
+\addtolength{\textheight}{0.75in}
+
+
+%-----------------------------------------------------------
+%Custom commands
+\newcommand{\resitem}[1]{\item #1 \vspace{-1pt}}
+\newcommand{\resheading}[1]{{\large \colorbox{mygrey}{\begin{minipage}{\textwidth}{\textbf{#1 \vphantom{p\^{E}}}}\end{minipage}}}}
+\newcommand{\ressubheading}[4]{
+\begin{tabular*}{6.5in}{l@{\extracolsep{\fill}}r}
+		\textbf{#1} & #2 \\
+		\textit{#3} & \textit{#4} \\
+\end{tabular*}\vspace{-6pt}}
+
+\newcommand{\ressubheadingleader}[4]{
+\begin{tabular*}{6.5in}{l@{\extracolsep{\fill}}r}
+		\textbf{#1} & #2 \\
+		{#3} & \textit{#4} \\
+\end{tabular*}\vspace{-6pt}}
+
+
+
+%-----------------------------------------------------------
+
+%-----------------------------------------------------------
+
+%-----------------------------------------------------------
+
+\begin{document}
+
+\renewcommand{\baselinestretch}{1}
+ \normalsize
+    
+\newcommand{\mywebheader}{
+\begin{tabular*}{7in}{l@{\extracolsep{\fill}}r}
+	\textbf{{\huge \textsc{{Matthew D. Phinney}}}} & {\textbf{{M.Phinney@GatesScholar.org}}}\\
+	{\small{{3795 20th Street, San Francisco, CA 94110}}} \\
+	\end{tabular*}
+\\
+\vspace{0.15in}}
+
+% CHANGE HEADER SOURCE HERE
+\mywebheader
+
+%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%
+\resheading{\Large{Professional}}
+\large
+	\begin{itemize}
+		\item
+			\ressubheading{\href{http://www.princeton.com/}{Princeton Consultants}}{Princeton, NJ}{Analyst -- Java Development} {October 2012-Present}
+			{ \small
+				\begin{itemize}
+				\renewcommand{\baselinestretch}{1}
+				 \normalsize
+					{\resitem{Developed Java-based web application}}
+					{\resitem{Used Oracle ADF, Hibernate, and JUnit frameworks}}
+					{\resitem{Used the Hudson Continuous Integration server to build code base and run unit tests}}
+					{\resitem{Worked with business team and clients to deliver, install, and deploy application}}
+				\end{itemize}
+			}
+	\end{itemize} 
+\resheading{\Large{Academic}}
+\large
+	\begin{itemize}
+		\item
+			\ressubheading{\href{http://www.cam.ac.uk/}{Cambridge University}}{Cambridge, UK}{\href{http://www.maths.cam.ac.uk/postgrad/mathiii/}{MASt Pure Mathematics} -- \href{http://www.gatescambridge.org/our-scholars/Profile.aspx?ScholarID=5646}{Gates Cambridge Scholar}} {June 2012}
+		\item
+			\ressubheading{\href{http://www.ox.ac.uk}{Oxford University}}{Oxford, UK}{\href{http://www.maths.ox.ac.uk/current-students/graduates/courses/mscmmsc}{MSc Mathematical Modelling and Scientific Computing}} {September 2011}
+
+			
+		\item
+			\ressubheading{\href{http://www.trincoll.edu/}{Trinity College}}{Hartford, CT}{{\href{http://www.trincoll.edu/Academics/MajorsAndMinors/Mathematics/Pages/default.aspx}{AB Mathematics,}} {\href{http://www.trincoll.edu/Academics/MajorsAndMinors/Music/Pages/default.aspx}{Music} -- Salutatorian, \href{http://www.act.org/goldwater/}{Goldwater Scholar}}}{May 2010}
+
+	\end{itemize} 
+	
+	% End Education list
+	
+%	\resheading{\Large{Skills}}
+%	\begin{itemize}
+%	\normalsize		
+%		\resitem{Selected Coursework: Stochastic Calculus and Applications, Stochastic Differential Equations, Statistical Theory, C++ for Scientific Computing, Advanced Probability, Numerical Linear Algebra, Numerical Solution of Differential Equations, Finite Element Methods for Partial Differential Equations}
+%		\resitem{Computing: Java, Linux/Unix command line, MatLab}
+%		
+%	\end{itemize}
+	
+% End coursework list
+%%%%%%%%%%%%%%%%%%%%%%
+%\resheading{\Large{Distinctions}}
+%\begin{multicols}{2}
+%	\begin{itemize}
+%	\normalsize
+%		\resitem{\href{http://www.gatesscholar.org/our-scholars/new-scholar-profile.aspx?ScholarID=5646}{Gates Cambridge Scholar}}
+%		\resitem{\href{http://www.pbk.org/home/index.aspx}{Phi Beta Kappa}}
+%		\resitem{\href{http://www.act.org/goldwater/}{Goldwater Scholar}}
+%		\resitem{\href{http://www.pme-math.org/}{Pi Mu Epsilon}}
+%		\resitem{H. E. Russell Fellowship}
+%		\resitem{First Prize in First Year Mathematics}
+%	\end{itemize}
+%\end{multicols}
+% End Distinctions list
+
+%\resheading{\Large{Research and Presentations}}
+%\begin{itemize}
+%\large
+%
+%	\item
+%		\ressubheading{Part III Essay}{Cambridge University}{Deterministic and Stochastic Models for the Multiplicative Coalescent}{2012}
+%
+%	\item
+%		\ressubheading{Part III Seminar}{Cambridge University}{Coagulation with Limited Aggregations}{2012}
+%			
+%	\item
+%		\ressubheading{Part III Seminar}{Cambridge University}{Stochastic Simulation of Chemical Reactions}{2011}
+%	
+%	\item
+%		\ressubheading{MSc Dissertation}{Oxford University}{Multiscale Methods for Stochastic Simulation of Chemical Reactions}{2011}
+%
+%	\item
+%		\ressubheading{Senior Seminar Talk}{Trinity College}{Georg Cantor and the Uncontability of the Reals}{2010}
+%				
+%	\item
+%		\ressubheading{Interdisciplinary Science Program Research Apprenticeship}{Trinity College}{Labeling the Petersen Graph}{2007}
+%
+%								
+%\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+\resheading{\Large{Leadership}}
+\large
+	\begin{itemize}
+			\item 
+			\ressubheading{\href{http://www.odauk.org/}{Oxford Development Abroad}}{Mbale, Uganda}{Little Big Africa}{Summer 2009}
+				{ \small
+				\begin{itemize}
+				\renewcommand{\baselinestretch}{1}
+				 \normalsize
+					{\resitem{\href{http://www.littlebigafrica.org/}{Worked with engineers to construct a cistern at a local school}}}
+
+				\end{itemize}
+				}
+				
+%						\item 
+%			\ressubheadingleader{{Trinity College Supplemental Instruction Program}}{Trinity College}{Supplemental Instruction Leader in Single Variable Calculus}{Fall 2007}
+%			{\small
+%			\begin{itemize}
+%			\renewcommand{\baselinestretch}{1}
+%			\normalsize
+%			{\resitem{Led review sessions and assisted in preparing examinations}}
+%			 \end{itemize}
+%			 }
+%			\renewcommand{\baselinestretch}{1}
+		\item
+			\ressubheading{\href{http://www.davisprojectsforpeace.org/}{Kathryn Wasserman Davis 100 Projects for Peace Grant Winner}}{Kathmandu, Nepal}{A community approach to solar lighting}{Summer 2007}
+				{ \small
+				\begin{itemize}
+				\renewcommand{\baselinestretch}{1}
+ 				\normalsize
+					{\resitem{\href{http://www.davisprojectsforpeace.org/projects/2007/node/243}{Installed photovoltaic panels in two rural villages}}}
+				\end{itemize}
+          			}
+		
+
+	\end{itemize}  % End Experience list
+
+
+
+\end{document}
