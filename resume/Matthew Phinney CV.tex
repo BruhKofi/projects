@@ -7,6 +7,7 @@
 \usepackage{verbatim}
 \usepackage[pdftex]{hyperref}
 \usepackage{microtype}
+\usepackage{graphicx}
 \usepackage{multicol}
 \hypersetup{
     colorlinks,%
@@ -50,6 +51,8 @@
 
 
 
+
+
 %-----------------------------------------------------------
 
 %-----------------------------------------------------------
@@ -58,15 +61,25 @@
 
 \begin{document}
 
+
 \renewcommand{\baselinestretch}{1}
  \normalsize
-    
+
 \newcommand{\mywebheader}{
-\begin{tabular*}{7in}{l@{\extracolsep{\fill}}r}
-	\textbf{{\huge \textsc{{Matthew D. Phinney}}}} & {\textbf{{M.Phinney@GatesScholar.org}}}\\
-	{\small{{3795 20th Street, San Francisco, CA 94110}}} \\
-	\end{tabular*}
-\\
+\begin{figure}[!ht]
+	\begin{minipage}[t]{.2\textwidth}
+		\vspace{0pt}
+    		\includegraphics[width=40mm]{Matt-Phinney-64.jpg}
+   	 \end{minipage}\hfill
+	\begin{minipage}[t]{.75\textwidth}
+		\vspace{0pt}
+    		\begin{tabular*}{4in}{l@{\extracolsep{\fill}}r}
+      			\textbf{{\huge \textsc{{Matthew D. Phinney}}}} & {\textbf{{M.Phinney@GatesScholar.org}}}\\
+      			{\textbf{{3795 20th Street, San Francisco, CA 94110}}} \\
+      			
+    		\end{tabular*}
+    	\end{minipage}
+\end{figure}
 \vspace{0.15in}}
 
 % CHANGE HEADER SOURCE HERE
@@ -79,7 +92,8 @@
 \large
 	\begin{itemize}
 		\item
-			\ressubheading{\href{http://www.princeton.com/}{Princeton Consultants}}{Princeton, NJ}{Analyst -- Java Development} {October 2012-Present}
+			\ressubheading{\href{http://www.princeton.com/}{Princeton Consultants}}{Princeton, NJ}{Analyst -- Java Development} {October 2012-August 2014}
+			\begin{comment}
 			{ \small
 				\begin{itemize}
 				\renewcommand{\baselinestretch}{1}
@@ -90,6 +104,7 @@
 					{\resitem{Worked with business team and clients to deliver, install, and deploy application}}
 				\end{itemize}
 			}
+			\end{comment}
 	\end{itemize} 
 \resheading{\Large{Academic}}
 \large
