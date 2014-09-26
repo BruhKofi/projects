@@ -1,4 +1,5 @@
 import java.util.NoSuchElementException;
+import java.lang.IndexOutOfBoundsException;
 public class MyBST<Key extends Comparable<Key>, Value>
 {
     private Node root;
@@ -138,15 +139,37 @@ public class MyBST<Key extends Comparable<Key>, Value>
         return x;
     }
 
+    public int rank(Key key) {
+        return rank(root, key);
+    }
+
+    private int rank(Node x, Key key) {
+        if (x == null) throw new NoSuchElementException("Key not in symbol table");
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0) return rank(x.left, key);
+        else if (cmp > 0) return 1 + size(x.left) + rank(x.right, key);
+        else return size(x.left);
+    }
+
+    public Key select(int k) {
+        if (k < 0 || k >= size()) throw new IndexOutOfBoundsException("Value must be between 0 and " + (size()-1));
+        Node x = select(root, k);
+        return x.key;
+    }
+
+    private Node select(Node x, int k) {
+        if (x == null) throw new NullPointerException("Cannot access null node");
+        int sz = size(x.left);
+        if (sz > k) return select(x.left, k);
+        else if (sz < k) return select(x.right, k-sz);
+        else return x;
+    }
+
     public static void main(String[] args) {
-        MyBST<Integer, String> st = new MyBST<Integer, String>();
-        for (int i = 0; i<3; i++) {
-            st.put(i, "hello");
-        }
-        while (!StdIn.isEmpty()) {
-            int j = StdIn.readInt();
-            st.delete(j);
-            for (int i : st.keys()) StdOut.println(i + ": " + st.get(i));
-        }
+        MyBST<String, Integer> st = new MyBST<String, Integer>();
+        int i = 0;
+        while (!StdIn.isEmpty()) st.put(StdIn.readString(), i++);
+        StdOut.println(st.select(st.size()-1));
+        StdOut.println(st.select(0));
     }
 }
