@@ -165,12 +165,49 @@ public class MyBST<Key extends Comparable<Key>, Value>
         else return x;
     }
 
+    public Key floor(Key key) {
+        Node x = floor(root, key);
+        if (x == null) return null;
+        return x.key;
+    }
+
+    private Node floor(Node x, Key key) {
+        if (x == null) return null;
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0) return floor(x.left, key);
+        else if (cmp > 0) {
+            Node t = floor(x.right, key);
+            if (t != null) return t;
+        }
+        return x;
+    }
+
+    public Key ceiling(Key key) {
+        Node x = ceiling(root, key);
+        if (x == null) return null;
+        return x.key;
+    }
+
+    private Node ceiling(Node x, Key key) {
+        if (x == null) return null;
+        int cmp = key.compareTo(x.key);
+        if (cmp > 0) return ceiling(x.right, key);
+        else if (cmp < 0) {
+            Node t = ceiling(x.left, key);
+            if (t != null) return t;
+        }
+        return x;
+    }
+
     public static void main(String[] args) {
         MyBST<String, Integer> st = new MyBST<String, Integer>();
         int i = 0;
         while (!StdIn.isEmpty()) st.put(StdIn.readString(), i++);
-        StdOut.println(st.select(0));
-        StdOut.println(st.select(1));
-        StdOut.println(st.select(2));
+        for (String s : st.keys()) StdOut.println(s);
+        StdOut.println();
+        StdOut.println(st.ceiling("hi"));
+        StdOut.println(st.ceiling("isa"));
+        StdOut.println(st.ceiling("world"));
+        StdOut.println(st.ceiling("btiar"));
     }
 }
