@@ -14,7 +14,7 @@ public class MySeparateChainingHashST<Key, Value>
         for (int i = 0; i<Q; i++) st[i] = new MySequentialSearchST<Key, Value>();
     }
 
-    public int hash(Key key) {
+    private int hash(Key key) {
         return (key.hashCode() & 0x7fffffff) % Q;
     }
 
