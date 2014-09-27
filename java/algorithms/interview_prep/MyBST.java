@@ -152,16 +152,16 @@ public class MyBST<Key extends Comparable<Key>, Value>
     }
 
     public Key select(int k) {
+        if (isEmpty()) throw new NoSuchElementException("Cannot select key from empty table");
         if (k < 0 || k >= size()) throw new IndexOutOfBoundsException("Value must be between 0 and " + (size()-1));
-        Node x = select(root, k);
-        return x.key;
+        return select(root, k).key;
     }
 
     private Node select(Node x, int k) {
         if (x == null) throw new NullPointerException("Cannot access null node");
         int sz = size(x.left);
         if (sz > k) return select(x.left, k);
-        else if (sz < k) return select(x.right, k-sz);
+        else if (sz < k) return select(x.right, k-sz-1);
         else return x;
     }
 
@@ -169,7 +169,8 @@ public class MyBST<Key extends Comparable<Key>, Value>
         MyBST<String, Integer> st = new MyBST<String, Integer>();
         int i = 0;
         while (!StdIn.isEmpty()) st.put(StdIn.readString(), i++);
-        StdOut.println(st.select(st.size()-1));
         StdOut.println(st.select(0));
+        StdOut.println(st.select(1));
+        StdOut.println(st.select(2));
     }
 }
