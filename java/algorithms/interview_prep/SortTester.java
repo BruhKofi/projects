@@ -21,7 +21,7 @@ public class SortTester
         int T = Integer.parseInt(args[1]);
         for (int t = 0; t<T; t++) {
             Double[] a = makeArray(N);
-            MyMergeSorter.mergeSort(a);
+            MyQuickSorter.quick3Way(a);
             assert(isSorted(a));
         }
     }
