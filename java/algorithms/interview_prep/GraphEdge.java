@@ -28,4 +28,10 @@ public class GraphEdge implements Comparable<GraphEdge>
         else if (this.weight() < other.weight()) return -1;
         else return 0;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%d-%d %.5f", this.v, this.w, this.weight);
+    }
+        
 }
