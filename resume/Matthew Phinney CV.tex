@@ -62,10 +62,7 @@
 \begin{document}
 
 
-\renewcommand{\baselinestretch}{1}
- \normalsize
-
-\newcommand{\mywebheader}{
+\begin{comment}		
 \begin{figure}[!ht]
 	\begin{minipage}[t]{.25\textwidth}
 		\vspace{0pt}
@@ -83,6 +80,18 @@
     		\end{tabular*}
     	\end{minipage}
 \end{figure}
+\end{comment}
+
+\renewcommand{\baselinestretch}{1}
+ \normalsize
+
+\newcommand{\mywebheader}{
+\begin{tabular*}{7in}{l@{\extracolsep{\fill}}r}
+	\textbf{{\Huge \textsc{{Matthew D. Phinney}}}}\hfill{\textbf{{M.Phinney@GatesScholar.org}}}\\
+	{\textbf{{3795 20th Street, San Francisco, CA 94110}}} \vspace{0.05in}\\
+	\fbox{\parbox{\textwidth}{I am a Java developer looking to apply my skills to technical, data--driven projects.  My comprehensive knowledge of algorithms and conscientious approach to problem solving allows me to write clean code with superior performance characteristics.  I excel in an environment that fosters creativity and demands polished results, and I look forward to discussing how I might contribute to your team.}}\vspace{0.05in}\\
+	\end{tabular*}
+\\
 \vspace{0.15in}}
 
 % CHANGE HEADER SOURCE HERE
@@ -101,16 +110,32 @@
 				\begin{itemize}
 				\renewcommand{\baselinestretch}{1}
 				 \normalsize
-					{\resitem{Developed Java-based web application using Oracle ADF, Coherence, Hibernate, and JUnit}}
-					\begin{comment}
-					{\resitem{}}
+					{\resitem{Developed a web application for an international transportation company}}
+					{\resitem{Used Oracle ADF, Coherence, Hibernate, and JUnit}}
 					{\resitem{Used the Hudson Continuous Integration server to build code base and run unit tests}}
 					{\resitem{Worked with business team and clients to deliver, install, and deploy application}}
-					\end{comment}
 				\end{itemize}
 			}
 			
 	\end{itemize}
+
+
+\resheading{\Large{Technical skills}}
+\begin{multicols}{2}
+	\begin{itemize}
+	\large
+		\resitem{Java}
+		\resitem{C/C++}
+		\resitem{Python (rudimentary)}
+		\resitem{Unix command line tools}
+		\resitem{GNU Emacs}
+		\resitem{Test driven development}
+		\resitem{Hudson Continuous Integration}
+		\resitem{Git/GitHub}
+		\resitem{Tortoise SVN}
+		\resitem{Apache Ant}
+	\end{itemize}
+\end{multicols}
 
 %%%%%%%%%%%%%%%%%%%%%%
 \resheading{\Large{Academic Background}}
@@ -180,17 +205,6 @@
 %								
 %\end{itemize}
 
-\resheading{\Large{Favorite Development Tools}}
-\begin{multicols}{2}
-	\begin{itemize}
-	\large
-		\resitem{Editor: \href{http://www.gnu.org/software/emacs/}{GNU Emacs}}
-		\resitem{Shell: \href{http://www.gnu.org/software/bash/}{GNU Bash}}
-		\resitem{Version control: \href{http://git-scm.com/}{git}}
-		\resitem{Language: Java}
-	\end{itemize}
-\end{multicols}
-
 %%%%%%%%%%%%%%%%%%%%%%
 \resheading{\Large{Service Projects}}
 \large
@@ -201,7 +215,6 @@
 				\begin{itemize}
 				\renewcommand{\baselinestretch}{1}
 				 \normalsize
-				 	{\resitem{Fundraised in U.S. and U.K}}
 					{\resitem{Worked with engineers to construct a cistern at a local school}}
 					{\resitem{Worked with community members to build smokeless cook-stoves}}
 
