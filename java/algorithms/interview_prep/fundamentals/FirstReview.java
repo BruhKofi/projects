@@ -8,7 +8,8 @@ public class FirstReview
     public static void main(String[] args) {
         int N = Integer.parseInt(args[0]);
         int T = Integer.parseInt(args[1]);
-        StdOut.println(rumors(N, T));
+        StdOut.println(couponCollector(N, T));
+        StdOut.println(N*harmonic(N));
     }
     
     public static boolean evenDivisor(int a, int b) {
@@ -452,5 +453,23 @@ public class FirstReview
             totalCnt += cnt;
         }
         return totalCnt/(double)T;
+    }
+
+    // T trials of the coupon collector problem
+    public static double couponCollector(int N, int T) {
+        int draws = 0;
+        for (int t = 0; t<T; t++) {
+            boolean[] marked = new boolean[N];
+            int cnt = 0;
+            while (cnt < N) {
+                int r = StdRandom.uniform(N);
+                draws++;
+                if (!marked[r]) {
+                    cnt++;
+                    marked[r] = true;
+                }
+            }
+        }
+        return draws/(double)T;
     }
 }
