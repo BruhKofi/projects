@@ -8,15 +8,7 @@ public class FirstReview
     public static void main(String[] args) {
         int N = Integer.parseInt(args[0]);
         int T = Integer.parseInt(args[1]);
-        int[] a = randInts(N);
-        int i = longestPlateau(a);
-        StdOut.println(i);
-        int j = i;
-        StdOut.println(a[j-1]);
-        for (j = i; j<a.length-1 && a[j] == a[j+1]; j++) {
-            StdOut.println(a[j]);
-        }
-        StdOut.println(a[j+1]);
+        StdOut.println(rumors(N, T));
     }
     
     public static boolean evenDivisor(int a, int b) {
@@ -426,25 +418,39 @@ public class FirstReview
         return a;
     }
 
+    // Alice has N guests at a party
+    // Bob starts a rumor about Alice, telling one guest
+    // The rumor propogates
+    // Each guest tells another guest except for himself or the person he heard it from
+    // The rumor stops propogating if
+    // 1. it is told to a guest who already heard it
+    // 2. all guests have heard the rumor
+    // Estimate how many guests will hear the rumor before it stops propogating
     public static double rumors(int N, int T) {
-        boolean[] heard = new boolean[N];
-        int cnt = 1;
-        heard[0] = true;
-        
-        int prev = 0;
-        int current = 0;
-        do {
-            current = StdRandom.uniform(N);
-        } while (current == 0);
-        while (cnt < N) {
-            cnt++;
-            prev = current;
+        int totalCnt = 0;
+        for (int t = 0; t<T; t++) {
+            boolean[] heard = new boolean[N];
+            int cnt = 1;
+            heard[0] = true;
+            int prev = 0;
+            int current = 0;
             do {
                 current = StdRandom.uniform(N);
             } while (current == prev);
-            if (heard[current]) break;
-            heard[current] = true;
+        
+            while (cnt < N) {
+                heard[current] = true;
+                cnt++;
+                int next = current;
+                do {
+                    next = StdRandom.uniform(N);
+                } while (next == current);
+                if (heard[next]) break;
+                prev = current;
+                current = next;
+            }
+            totalCnt += cnt;
         }
-        return cnt;
+        return totalCnt/(double)T;
     }
 }
