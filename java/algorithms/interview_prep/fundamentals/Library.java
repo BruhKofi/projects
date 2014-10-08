@@ -2,18 +2,8 @@ public class Library
 {
     private static final int DOUBLE_BOUND = 10000;
     public static void main(String[] args) {
-        int N = Integer.parseInt(args[0]);
-        int M = Integer.parseInt(args[1]);
-        int P = Integer.parseInt(args[2]);
-        double[][] a = randMatrix(N, M);
-        double[][] b = randMatrix(M, P);
-        double[][] c = multiply(a, b);
-        printMatrix(a);
-        StdOut.println();
-        printMatrix(b);
-        StdOut.println();
-        printMatrix(c);
-        StdOut.println();
+        int T = Integer.parseInt(args[0]);
+        StdOut.println(passBet(T));
     }
 
     private static void print(double[] a) {
@@ -81,5 +71,30 @@ public class Library
             }
             StdOut.println();
         }
+    }
+
+    public static int roll() {
+        return 1 + StdRandom.uniform(6);
+    }
+
+    // T trials of a pass bet in craps
+    // Return probability of winning
+    public static double passBet(int T) {
+        int wins = 0;
+        for (int t = 0; t<T; t++) {
+            int sum = roll() + roll();
+            if (sum == 7 || sum == 11) wins++;
+            else if (sum == 2 || sum == 3 || sum == 12) {}
+            else {
+                while (true) {
+                    int newSum = roll() + roll();
+                    if (newSum == sum) {
+                        wins++;
+                        break;
+                    } else if (newSum == 7) break;
+                }
+            }
+        }
+        return wins/(double)T;
     }
 }
