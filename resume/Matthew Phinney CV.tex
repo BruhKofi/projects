@@ -71,7 +71,7 @@
 	\fbox{\parbox{\textwidth}{I am a developer looking to apply my skills to technical, data--driven projects.  My comprehensive knowledge of algorithms and conscientious approach to problem solving allows me to write clean code with superior performance characteristics.  I excel in an environment that fosters creativity, encourages collaboration, and demands polished results, and I look forward to discussing how I might contribute to your team.}}\vspace{0.05in}\\
 	\end{tabular*}
 \\
-\vspace{0.15in}}
+\vspace{0.1in}}
 
 % CHANGE HEADER SOURCE HERE
 \mywebheader
@@ -80,10 +80,11 @@
 
 %%%%%%%%%%%%%%%%%%%%%%
 \resheading{\Large{Technical skills}}
-\begin{multicols}{2}
+\begin{multicols}{3}
 	\begin{itemize}
 	\large
 		\resitem{Test driven development}
+		\begin{comment}
 		{ \small
 				\begin{itemize}
 				\renewcommand{\baselinestretch}{1}
@@ -91,12 +92,12 @@
 					{\resitem{Wrote JUnit tests in conjunction with source code and used tests to pinpoint bugs in code written later in the development process}}
 				\end{itemize}
 		}
-
-		\resitem{Java}
+		\end{comment}
 		\resitem{Git}
 		\resitem{Tortoise SVN}
 		\resitem{Apache Ant}
-		\resitem{Hudson Continuous Integration}
+		\resitem{Hudson CI}
+		\begin{comment}
 		{ \small
 				\begin{itemize}
 				\renewcommand{\baselinestretch}{1}
@@ -105,35 +106,53 @@
 					{\resitem{Reduced deployment time with automated job: build source, copy JARs to staging server, load Coherence Cache, deploy WebLogic application}}
 				\end{itemize}
 		}
-
-		\resitem{C/C++}
+		\end{comment}
 		\resitem{Unix command line tools}
 		\resitem{GNU Emacs}
+		\resitem{MatLab}
+		\resitem{Java}
+		\resitem{Hibernate}
+		\resitem{C/C++}
 		\resitem{Python}
 	\end{itemize}
 \end{multicols}
 
-\resheading{\Large{Professional Experience}}
+\resheading{\Large{Experience}}
 \large
 	\begin{itemize}
 		\item
-			\ressubheading{\href{http://www.princeton.com/}{Princeton Consultants}}{Princeton, NJ}{Analyst -- Java development} {October 2012-August 2014}
+			\ressubheading{\href{http://www.princeton.com/}{Princeton Consultants}}{Princeton, NJ}{Developed a web application for a transportation company} {October 2012-August 2014}
 			
 			{ \small
 				\begin{itemize}
 				\renewcommand{\baselinestretch}{1}
 				 \normalsize
-					{\resitem{Developed a Java-based web application for an international transportation company}}
-					\resitem{Used the Hibernate framework to develop back end Java code to read/write from our SQL database}
+				 	\resitem{Set up Hudson jobs to build source code, run unit tests, and execute deployment process}
 					\resitem{Wrote and executed tests with JUnit, following a comprehensive process of test driven development}
-					\resitem{Set up Hudson jobs to build source code, run unit tests, and deploy application to WebLogic server}
 					\resitem{Used Oracle Coherence to develop a distributed cache for in-memory data storage}
+					\resitem{Used the Hibernate framework to develop back end Java code to read/write from our SQL database}
 					{\resitem{Used Oracle ADF and JavaScript to develop the UI components of the application}}
-					{\resitem{Worked with our clients to deliver, install, and deploy application on their servers}}
+					%{\resitem{Worked with our clients to deliver, install, and deploy application on their servers}}
 				\end{itemize}
 			}
 			
 	\end{itemize}
+	\begin{itemize}
+		\item
+			\ressubheading{{Oxford University}}{Oxford, UK}{Numerical research with C++} {June 2011-September 2011}
+			
+			{ \small
+				\begin{itemize}
+				\renewcommand{\baselinestretch}{1}
+				 \normalsize
+					{\resitem{Developed and implemented C++ library for linear algebra}}
+					\resitem{Implemented five Monte Carlo algorithms for the simulation of chemical reactions}
+					\resitem{Imported data from simulations into MatLab and compared plots of error vs runtime}
+				\end{itemize}
+			}
+			
+	\end{itemize}
+
 
 
 
@@ -144,12 +163,26 @@
 	\begin{itemize}
 		\item
 			\ressubheading{\href{http://www.cam.ac.uk/}{Cambridge University}}{Cambridge, UK}{\href{http://www.maths.cam.ac.uk/postgrad/mathiii/}{MASt Pure Mathematics}} {June 2012}
+			{ \small
+				\begin{itemize}
+				\renewcommand{\baselinestretch}{1}
+				 \normalsize
+					{\resitem{\href{http://www.gatescambridge.org/our-scholars/Profile.aspx?ScholarID=5646}{Gates Cambridge Scholar}: Merit based scholarship to Cambridge (95 selected from c. 4000)}}
+				\end{itemize}
+			}
 		\item
-			\ressubheading{\href{http://www.ox.ac.uk}{Oxford University}}{Oxford, UK}{\href{https://www.maths.ox.ac.uk/members/students/postgraduate-courses/msc-mmsc}{MSc Mathematical Modelling and Scientific Computing}} {September 2011}
+			\ressubheading{\href{http://www.ox.ac.uk}{Oxford University}}{Oxford, UK}{\href{https://www.maths.ox.ac.uk/members/students/postgraduate-courses/msc-mmsc}{MSc Mathematical Modelling and Scientific Computing} -- with distinction} {September 2011}
 
 			
 		\item
 			\ressubheading{\href{http://www.trincoll.edu/}{Trinity College}}{Hartford, CT}{{\href{http://www.trincoll.edu/Academics/MajorsAndMinors/Mathematics/Pages/default.aspx}{AB Mathematics,}} {\href{http://www.trincoll.edu/Academics/MajorsAndMinors/Music/Pages/default.aspx}{Music} -- Salutatorian}}{May 2010}
+		{ \small
+				\begin{itemize}
+				\renewcommand{\baselinestretch}{1}
+				 \normalsize
+					{\resitem{\href{http://www.act.org/goldwater/}{Goldwater Scholar}: Merit based science scholarship (c. 300 selected from c. 1200)}}
+				\end{itemize}
+			}
 
 	\end{itemize} 
 	
@@ -164,50 +197,6 @@
 %	\end{itemize}
 	
 % End coursework list
-%%%%%%%%%%%%%%%%%%%%%%
-\resheading{\Large{Academic Awards}}
-\begin{multicols}{2}
-	\begin{itemize}
-	\large
-		\resitem{\href{http://www.gatescambridge.org/our-scholars/Profile.aspx?ScholarID=5646}{Gates Cambridge Scholar}}
-		{ \small
-				\begin{itemize}
-				\renewcommand{\baselinestretch}{1}
-				 \small
-					{\resitem{1 of about 40 Americans selected}}
-				\end{itemize}
-				}
-		\resitem{\href{http://www.pbk.org/home/index.aspx}{Phi Beta Kappa}}
-				{ \small
-				\begin{itemize}
-				\renewcommand{\baselinestretch}{1}
-				 \small
-					{\resitem{National academic honor society}}
-				\end{itemize}
-		}
-		\resitem{\href{http://www.act.org/goldwater/}{Goldwater Scholar}}
-		{ \small
-				\begin{itemize}
-				\renewcommand{\baselinestretch}{1}
-				 \small
-					{\resitem{1 of about 300 Americans selected}}
-				\end{itemize}
-		}
-		\resitem{\href{http://www.pme-math.org/}{Pi Mu Epsilon}}
-						{ \small
-				\begin{itemize}
-				\renewcommand{\baselinestretch}{1}
-				 \small
-					{\resitem{National mathematics honor society}}
-				\end{itemize}
-		}
-		\begin{comment}
-		\resitem{H. E. Russell Fellowship}
-		\resitem{First Prize in First Year Mathematics}
-		\end{comment}
-	\end{itemize}
-\end{multicols}
-% End Distinctions list
 
 %\resheading{\Large{Research and Presentations}}
 %\begin{itemize}
@@ -233,6 +222,12 @@
 %
 %								
 %\end{itemize}
+
+\resheading{\Large{Personal}}\vspace{0.05in}\\
+\normalsize
+\vspace{0.15in}
+\fbox{\parbox{\textwidth}{Aside from coding, I enjoy surfing, cooking, hiking, basketball, and travel.  I played pipe organ professionally in high school and college, and have worked on service projects in Nepal and Uganda.}}
+
 
 %%%%%%%%%%%%%%%%%%%%%%
 \begin{comment}
