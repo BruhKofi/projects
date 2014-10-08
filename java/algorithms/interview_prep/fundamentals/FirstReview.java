@@ -8,7 +8,7 @@ public class FirstReview
     public static void main(String[] args) {
         int N = Integer.parseInt(args[0]);
         int T = Integer.parseInt(args[1]);
-        StdOut.println(couponCollector(N, T));
+        StdOut.println(birthdays(N, T));
         StdOut.println(N*harmonic(N));
     }
     
@@ -472,4 +472,22 @@ public class FirstReview
         }
         return draws/(double)T;
     }
+
+    // T trials of birthday problem
+    // N should be 365 (number of possible birthdays)
+    public static double birthdays(int N, int T) {
+        int ppl = 0;
+        for (int t = 0; t<T; t++) {
+            boolean[] marked = new boolean[N];
+            while (true) {
+                int r = StdRandom.uniform(N);
+                if (!marked[r]) {
+                    ppl++;
+                    marked[r] = true;
+                } else break;
+            }
+        }
+        return ppl/(double)T;
+    }
+        
 }
