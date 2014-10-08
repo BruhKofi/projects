@@ -1,5 +1,8 @@
 public class TrieTester
 {
+    //Compare performance of java.util.TreeMap with Sedgewick's implementation of a Trie symbol table
+    //Build frequency counter for strings in input file
+    //Then check if strings in a second file occur in the first
     public static void main(String[] args) {
         java.util.TreeMap<String, Integer> treeMap = new java.util.TreeMap<String, Integer>();
         TrieST<Integer> trie = new TrieST<Integer>();
