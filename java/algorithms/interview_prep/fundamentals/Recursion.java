@@ -3,7 +3,7 @@ public class Recursion
     public static void main(String[] args) {
         int N = Integer.parseInt(args[0]);
         int T = Integer.parseInt(args[1]);
-        StdOut.println(gcd(N, T));
+        gray("", N);
     }
 
     
@@ -33,5 +33,30 @@ public class Recursion
     public static int gcd(int a, int b) {
         if (b == 0) return a;
         return gcd(b, a%b);
+    }
+
+    public static void gray(String code, int n) {
+        if (n == 0) StdOut.println(code);
+        else {
+            gray(code + "0", n-1);
+            gray(code + "1", n-1);
+        }
+    }
+
+    public static void yarg(String code, int n) {
+        if (n == 0) StdOut.println(code);
+        else {
+            gray(code + "1", n-1);
+            yarg(code + "0", n-1);
+        }
+    }
+            
+
+    public static void grayCode(int n, boolean flag) {
+        if (n == 0) return;
+        grayCode(n-1, true);
+        if (flag) StdOut.println(0);
+        else StdOut.println(1);
+        grayCode(n-1, false);
     }
 }
