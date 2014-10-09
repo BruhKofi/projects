@@ -10,6 +10,10 @@ public class ComparingSorts
         quicksort(a);
         assert(isSorted(a));
         printArray(a);
+        a = randArray(N);
+        quicksort3Way(a);
+        assert(isSorted(a));
+        printArray(a);
     }
 
     private static void printArray(int[] a) {
@@ -68,5 +72,24 @@ public class ComparingSorts
         }
         exch(a, lo, j);
         return j;
+    }
+
+    public static void quicksort3Way(int[] a) {
+        shuffle(a);
+        quicksort3Way(a, 0, a.length-1);
+    }
+
+    private static void quicksort3Way(int[] a, int lo, int hi) {
+        if (hi <= lo) return;
+        int lt = lo, gt = hi;
+        int i = lo;
+        int t = a[lo];
+        while (i <= gt) {
+            if (a[i] < t) exch(a, i++, lt++);
+            else if (a[i] > t) exch(a, i, gt--);
+            else i++;
+        }
+        quicksort3Way(a, lo, lt-1);
+        quicksort3Way(a, gt+1, hi);
     }
 }
