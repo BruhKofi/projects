@@ -160,4 +160,31 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value>
         }
         return x;
     }
+
+    public int rank(Key key) {
+        return rank(root, key);
+    }
+
+    private int rank(Node x, Key key) {
+        if (x == null) return -1;
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0) return rank(x.left, key);
+        else if (cmp > 0) return 1 + size(x.left) + rank(x.right, key);
+        else return size(x.left);
+    }
+
+    public Key select(int k) {
+        if (k < 0 || k >= size()) return null;
+        Node x = select(root, k);
+        if (x == null) return null;
+        return x.key;
+    }
+
+    private Node select(Node x, int k) {
+        if (x == null) return null;
+        int sz = size(x.left);
+        if (sz > k) return select(x.left, k);
+        else if (sz < k) return select(x.right, k - 1 - sz);
+        else return x;
+    }
 }
