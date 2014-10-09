@@ -126,4 +126,38 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value>
         x.N = 1 + size(x.left) + size(x.right);
         return x;
     }
+
+    public Key floor(Key key) {
+        Node x = floor(root, key);
+        if (x == null) return null;
+        return x.key;
+    }
+
+    private Node floor(Node x, Key key) {
+        if (x == null) return null;
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0) return floor(x.left, key);
+        else if (cmp > 0) {
+            Node t = floor(x.right, key);
+            if (t != null) return t;
+        }
+        return x;
+    }
+
+    public Key ceiling(Key key) {
+        Node x = ceiling(root, key);
+        if (x == null) return null;
+        return x.key;
+    }
+
+    private Node ceiling(Node x, Key key) {
+        if (x == null) return null;
+        int cmp = key.compareTo(x.key);
+        if (cmp > 0) return ceiling(x.right, key);
+        else if (cmp < 0) {
+            Node t = ceiling(x.left, key);
+            if (t != null) return t;
+        }
+        return x;
+    }
 }
