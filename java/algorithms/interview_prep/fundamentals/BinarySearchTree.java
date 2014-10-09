@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 public class BinarySearchTree<Key extends Comparable<Key>, Value>
 {
     private Node root;
@@ -59,6 +60,50 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value>
         return get(key) != null;
     }
 
+    public Key min() {
+        if (isEmpty()) throw new NoSuchElementException("BST underflow");
+        return min(root).key;
+    }
+
+    private Node min(Node x) {
+        if (x.left == null) return x;
+        return min(x.left);
+    }
+
+    public Key max() {
+        if (isEmpty()) throw new NoSuchElementException("BST underflow");
+        return max(root).key;
+    }
+
+    private Node max(Node x) {
+        if (x.right == null) return x;
+        return max(x.right);
+    }
+
+    public void delMin() {
+        if (isEmpty()) throw new NoSuchElementException("BST underflow");
+        root = delMin(root);
+    }
+
+    private Node delMin(Node x) {
+        if (x.left == null) return x.right;
+        x.left = delMin(x.left);
+        x.N = 1 + size(x.left) + size(x.right);
+        return x;
+    }
+
+    public void delMax() {
+        if (isEmpty()) throw new NoSuchElementException("BST underflow");
+        root = delMax(root);
+    }
+
+    private Node delMax(Node x) {
+        if (x.right == null) return x.left;
+        x.right = delMax(x.right);
+        x.N = 1 + size(x.left) + size(x.right);
+        return x;
+    }
+
     public void delete(Key key) {
         root = delete(root, key);
     }
@@ -71,6 +116,12 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value>
         else {
             if (x.left == null) return x.right;
             if (x.right == null) return x.left;
+            else {
+                Node t = x;
+                x = min(t.right);
+                x.right = delMin(t.right);
+                x.left = t.left;
+            }
         }
         x.N = 1 + size(x.left) + size(x.right);
         return x;
