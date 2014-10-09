@@ -206,4 +206,48 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value>
         if (cmplo <= 0 && cmphi >= 0) q.enqueue(x.key);
         if (cmphi > 0) traverse(x.right, q, lo, hi);
     }
+
+    //Should also check order in this method
+    private boolean isBST() {
+        if (root == null) return true;
+        return isBST(root, null, null);
+    }
+
+    private boolean isBST(Node x, Key lo, Key hi) {
+        if (x == null) return true;
+        if (lo != null && lo.compareTo(x.key) >= 0) return false;
+        if (hi != null && hi.compareTo(x.key) <= 0) return false;
+        return isBST(x.left, lo, x.key) && isBST(x.right, x.key, hi);
+    }
+
+    public static void main(String[] args) {
+        int T = Integer.parseInt(args[0]);
+        String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        int len = ALPHABET.length();
+        int cnt = 0;
+        BinarySearchTree<Character, Integer> bst = new BinarySearchTree<Character, Integer>();
+        for (int i = 0; i<T; i++) {
+            int r = StdRandom.uniform(len);
+            char c = ALPHABET.charAt(r);
+            if (bst.contains(c)) bst.put(c, bst.get(c)+1);
+            else {
+                bst.put(c, 1);
+                cnt++;
+            }
+        }
+        assert(bst.size() == cnt);
+        char c = bst.min();
+        bst.delMin();
+        assert(!bst.contains(c));
+        c = bst.max();
+        bst.delMax();
+        assert(!bst.contains(c));
+        do {
+            c = ALPHABET.charAt(StdRandom.uniform(len));
+        } while (!bst.contains(c));
+        bst.delete(c);
+        assert(bst.isBST());
+        assert(!bst.contains(c));
+        for (Character d : bst.keys()) StdOut.println(d + " " + bst.get(d));
+    }
 }
