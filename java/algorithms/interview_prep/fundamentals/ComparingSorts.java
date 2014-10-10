@@ -171,7 +171,10 @@ public class ComparingSorts
     }
 
     private static void mergesort(int[] a, int[] aux, int lo, int hi) {
-        if (hi <= lo) return;
+        if (hi <= lo + CUTOFF) {
+            insertionSort(a, lo, hi);
+            return;
+        }
         int mid = lo + (hi - lo)/2;
         mergesort(a, aux, lo, mid);
         mergesort(a, aux, mid+1, hi);
