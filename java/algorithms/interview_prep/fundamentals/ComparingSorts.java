@@ -7,13 +7,18 @@ public class ComparingSorts
     public static void main(String[] args) {
         int N = Integer.parseInt(args[0]);
         int[] a = randArray(N);
-        quicksort(a);
+        // quicksort(a);
+        // assert(isSorted(a));
+        // printArray(a);
+        // a = randArray(N);
+        // quicksort3Way(a);
+        // assert(isSorted(a));
+        // printArray(a);
+        insertionSort(a);
         assert(isSorted(a));
         printArray(a);
-        a = randArray(N);
-        quicksort3Way(a);
-        assert(isSorted(a));
-        printArray(a);
+        // quicksortMedianOf3(a);
+        // assert(isSorted(a));
     }
 
     private static void printArray(int[] a) {
@@ -91,5 +96,48 @@ public class ComparingSorts
         }
         quicksort3Way(a, lo, lt-1);
         quicksort3Way(a, gt+1, hi);
+    }
+
+    public static void quicksortMedianOf3(int[] a) {
+        shuffle(a);
+        quicksortMedianOf3(a, 0, a.length-1);
+    }
+
+    private static void quicksortMedianOf3(int[] a, int lo, int hi) {
+        if (hi <= lo) return;
+        int j = partitionMedianOf3(a, lo, hi);
+        quicksortMedianOf3(a, lo, j-1);
+        quicksortMedianOf3(a, j+1, hi);
+    }
+
+    private static int partitionMedianOf3(int[] a, int lo, int hi) {
+        int i = lo, j = hi+1;
+        int t = sample(a, lo, hi);//partitioning element
+        StdOut.println(lo + " " + t + " " + hi);
+        while (true) {
+            while (a[++i] < t) if (i == hi) break;
+            while (t < a[--j]) if (j == lo) break;
+            if (j <= i) break;
+            exch(a, i, j);
+        }
+        exch(a, lo, j);
+        return j;
+    }
+
+    //Median of 3
+    private static int sample(int[] a, int lo, int hi) {
+        int[] sample = new int[3];
+        int sz = hi-lo;
+        sample[0] = a[lo + uniform(sz)];
+        sample[1] = a[lo + uniform(sz)];
+        sample[2] = a[lo + uniform(sz)];
+        insertionSort(a);
+        return a[1];
+    }
+
+    private static void insertionSort(int[] a) {
+        for (int i = 1; i<a.length; i++) {
+            for (int j = i; j>0 && a[j-1] > a[j]; j--) exch(a, j-1, j);
+        }
     }
 }
