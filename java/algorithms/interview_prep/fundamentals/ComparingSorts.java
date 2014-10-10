@@ -4,19 +4,19 @@
 */
 public class ComparingSorts
 {
+    private static final int CUTOFF = 7; //cutoff to insertion sort for small arrays
+    
     public static void main(String[] args) {
         int N = Integer.parseInt(args[0]);
         int[] a = randArray(N);
-        // quicksort(a);
+        quicksort(a);
+        assert(isSorted(a));
+        a = randArray(N);
+        quicksort3Way(a);
+        assert(isSorted(a));
+        // insertionSort(a);
         // assert(isSorted(a));
-        // printArray(a);
-        // a = randArray(N);
-        // quicksort3Way(a);
-        // assert(isSorted(a));
-        // printArray(a);
-        insertionSort(a);
-        // assert(isSorted(a));
-        // printArray(a);
+        a = randArray(N);
         quicksortMedianOf3(a);
         assert(isSorted(a));
     }
@@ -60,7 +60,10 @@ public class ComparingSorts
     }
 
     private static void quicksort(int[] a, int lo, int hi) {
-        if (hi <= lo) return;
+        if (hi <= lo+CUTOFF) {
+            insertionSort(a, lo, hi);
+            return;
+        }
         int j = partition(a, lo, hi);
         quicksort(a, lo, j-1);
         quicksort(a, j+1, hi);
@@ -85,7 +88,10 @@ public class ComparingSorts
     }
 
     private static void quicksort3Way(int[] a, int lo, int hi) {
-        if (hi <= lo) return;
+        if (hi <= lo + CUTOFF) {
+            insertionSort(a, lo, hi);
+            return;
+        }
         int lt = lo, gt = hi;
         int i = lo;
         int t = a[lo];
@@ -104,7 +110,10 @@ public class ComparingSorts
     }
 
     private static void quicksortMedianOf3(int[] a, int lo, int hi) {
-        if (hi <= lo) return;
+        if (hi <= lo + CUTOFF) {
+            insertionSort(a, lo, hi);
+            return;
+        }
         int j = partitionMedianOf3(a, lo, hi);
         quicksortMedianOf3(a, lo, j-1);
         quicksortMedianOf3(a, j+1, hi);
@@ -135,8 +144,18 @@ public class ComparingSorts
     }
 
     private static void insertionSort(int[] a) {
-        for (int i = 1; i<a.length; i++) {
-            for (int j = i; j>0 && a[j-1] > a[j]; j--) exch(a, j-1, j);
+        insertionSort(a, 0, a.length-1);
+    }
+
+    private static void insertionSort(int[] a, int lo, int hi) {
+        for (int i = lo; i<=hi; i++) {
+            for (int j = i; j>lo && a[j-1] > a[j]; j--) exch(a, j-1, j);
         }
+    }
+
+    private static void compareSort(int N, int T, String sort1, String sort2) {
+        // double time1 = 0.0;
+        // double time2 = 0.0;
+        // if (sort1.equals("Quick")) time1 = timeQuickSort(N, T);
     }
 }
