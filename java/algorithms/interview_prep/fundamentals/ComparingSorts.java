@@ -7,18 +7,20 @@ public class ComparingSorts
     private static final int CUTOFF = 7; //cutoff to insertion sort for small arrays
     
     public static void main(String[] args) {
-        int N = Integer.parseInt(args[0]);
-        int[] a = randArray(N);
-        quicksort(a);
-        assert(isSorted(a));
-        a = randArray(N);
-        quicksort3Way(a);
-        assert(isSorted(a));
+        int T = Integer.parseInt(args[0]);
+        int N = Integer.parseInt(args[1]);
+        compareSort(N, T);
+        // int[] a = randArray(N);
+        // quicksort(a);
+        // assert(isSorted(a));
+        // a = randArray(N);
+        // quicksort3Way(a);
+        // assert(isSorted(a));
         // insertionSort(a);
         // assert(isSorted(a));
-        a = randArray(N);
-        quicksortMedianOf3(a);
-        assert(isSorted(a));
+        // a = randArray(N);
+        // quicksortMedianOf3(a);
+        // assert(isSorted(a));
     }
 
     private static void printArray(int[] a) {
@@ -33,6 +35,12 @@ public class ComparingSorts
     private static int[] randArray(int N) {
         int[] a = new int[N];
         for (int i = 0; i<N; i++) a[i] = StdRandom.uniform(N);
+        return a;
+    }
+
+    private static int[] randRepeatedArray(int N) {
+        int[] a = new int[N];
+        for (int i = 0; i<N; i++) a[i] = StdRandom.uniform(100);
         return a;
     }
     
@@ -157,9 +165,41 @@ public class ComparingSorts
         }
     }
 
-    private static void compareSort(int N, int T, String sort1, String sort2) {
-        // double time1 = 0.0;
-        // double time2 = 0.0;
-        // if (sort1.equals("Quick")) time1 = timeQuickSort(N, T);
+    private static void compareSort(int N, int T) {
+        double time1 = 0.0;
+        double time2 = 0.0;
+        for (int t = 0; t<T; t++) {
+            int[] a = randArray(N);
+            Stopwatch sw = new Stopwatch();
+            quicksort(a);
+            time1 += sw.elapsedTime();
+        }
+        for (int t = 0; t<T; t++) {
+            int[] a = randArray(N);
+            Stopwatch sw = new Stopwatch();
+            quicksort3Way(a);
+            time2 += sw.elapsedTime();
+        }
+        System.out.println("Time to sort " + N + " integers uniformly selected in 0 ... N-1 " + T + " times");
+        System.out.println("Quicksort: " + time1);
+        System.out.println("Quicksort3Way: " + time2);
+
+        time1 = 0.0;
+        time2 = 0.0;
+        for (int t = 0; t<T; t++) {
+            int[] a = randArray(N);
+            Stopwatch sw = new Stopwatch();
+            quicksort(a);
+            time1 += sw.elapsedTime();
+        }
+        for (int t = 0; t<T; t++) {
+            int[] a = randArray(N);
+            Stopwatch sw = new Stopwatch();
+            quicksort3Way(a);
+            time2 += sw.elapsedTime();
+        }
+        System.out.println("Time to sort " + N + " integers uniformly selected in 0 ... 99 " + T + " times");
+        System.out.println("Quicksort: " + time1);
+        System.out.println("Quicksort3Way: " + time2);
     }
 }
