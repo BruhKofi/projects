@@ -121,26 +121,30 @@ public class ComparingSorts
 
     private static int partitionMedianOf3(int[] a, int lo, int hi) {
         int i = lo, j = hi+1;
-        int t = sample(a, lo, hi);//partitioning element
+        int v = sample(a, lo, hi);//partitioning element
+        int t = a[v];
         while (true) {
             while (a[++i] < t) if (i == hi) break;
             while (t < a[--j]) if (j == lo) break;
             if (j <= i) break;
             exch(a, i, j);
         }
-        exch(a, lo, j);
+        exch(a, v, j);
         return j;
     }
 
     //Median of 3
-    private static int sample(int[] a, int lo, int hi) {
-        int[] sample = new int[3];
+    private static int sample(int[] arr, int lo, int hi) {
         int sz = hi-lo;
-        sample[0] = a[lo + uniform(sz)];
-        sample[1] = a[lo + uniform(sz)];
-        sample[2] = a[lo + uniform(sz)];
-        insertionSort(a);
-        return a[1];
+        int r1 = lo + uniform(sz);
+        int r2 = lo + uniform(sz);
+        int r3 = lo + uniform(sz);
+        int a = arr[r1];
+        int b = arr[r2];
+        int c = arr[r3];
+        if ((a - b) * (c - a) >= 0) return r1;
+        else if ((b - a) * (c - b) >= 0) return r2;
+        else return r3;
     }
 
     private static void insertionSort(int[] a) {
