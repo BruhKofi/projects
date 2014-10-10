@@ -15,10 +15,10 @@ public class ComparingSorts
         // assert(isSorted(a));
         // printArray(a);
         insertionSort(a);
-        assert(isSorted(a));
-        printArray(a);
-        // quicksortMedianOf3(a);
         // assert(isSorted(a));
+        // printArray(a);
+        quicksortMedianOf3(a);
+        assert(isSorted(a));
     }
 
     private static void printArray(int[] a) {
@@ -113,7 +113,6 @@ public class ComparingSorts
     private static int partitionMedianOf3(int[] a, int lo, int hi) {
         int i = lo, j = hi+1;
         int t = sample(a, lo, hi);//partitioning element
-        StdOut.println(lo + " " + t + " " + hi);
         while (true) {
             while (a[++i] < t) if (i == hi) break;
             while (t < a[--j]) if (j == lo) break;
