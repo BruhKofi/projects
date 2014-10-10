@@ -233,5 +233,13 @@ public class ComparingSorts
             time += sw.elapsedTime();
         }
         System.out.println("Quicksort3Way: " + time);
+        time = 0.0;
+        for (int t = 0; t<T; t++) {
+            int[] a = randRepeatedArray(N);
+            Stopwatch sw = new Stopwatch();
+            mergesort(a);
+            time += sw.elapsedTime();
+        }
+        System.out.println("Mergesort: " + time);
     }
 }
