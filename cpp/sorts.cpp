@@ -41,7 +41,7 @@ void shuffle(int* a, int N);
 void quickSort(int* a, int N);
 void quickSort(int* a, int lo, int hi);
 int partition(int* a, int lo, int hi);
-int CUTOFF = 7;
+const int CUTOFF = 7;
 
 // main
 int main(int numars, char* argv[]) {
