@@ -137,17 +137,17 @@ void mergeSort(int* a, int lo, int hi) {
   merge(a, lo, mid, hi);
 }
 
-void merge(int* a, int lo, int mid, int hi) {
+void merge(int* a, const int lo, const int mid, const int hi) {
   int* aux = new int[hi-lo+1];
-  for (int k = lo; k<=hi; k++) aux[k] = a[k];
+  for (int k = lo; k<=hi; k++) aux[k-lo] = a[k];
   int i = lo, j = mid+1;
   for (int k = lo; k<=hi; k++) {
-    if (i > mid) a[k] = aux[j++];
-    else if (j > hi) a[k] = aux[i++];
-    else if (aux[i] < aux[j]) a[k] = aux[i++];
-    else a[k] = aux[j++];
+    if (i > mid) a[k] = aux[j++-lo];
+    else if (j > hi) a[k] = aux[i++-lo];
+    else if (aux[i] < aux[j]) a[k] = aux[i++-lo];
+    else a[k] = aux[j++-lo];
   }
-
+  delete[] aux;
 }
 
 // quicksort
