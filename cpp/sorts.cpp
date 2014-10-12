@@ -15,7 +15,7 @@ public:
 
   ~Timer()
   {
-    start = NULL;
+
   }
 
   double elapsed_time() {
@@ -47,23 +47,21 @@ const int CUTOFF = 7;
 int main(int numars, char* argv[]) {
   int N = atoi(argv[1]);
 
-  Timer time;
+  Timer insertion_time;
   int* a = makeArray(N);
   insertionSort(a, N);
-  cout<<"Insertion sort time : "<<time.elapsed_time()<<endl;
+  cout<<"Insertion sort time : "<<insertion_time.elapsed_time()<<endl;
+  
 
-
+  Timer merge_time;
   a = makeArray(N);
-  clock_t start = clock();
   mergeSort(a, N);
-  clock_t stop = clock();
-  cout<<(double)(stop-start)/CLOCKS_PER_SEC<<endl;
-  cout<<"Mergesort time : "<<time.elapsed_time()<<endl;
+  cout<<"Mergesort time : "<<merge_time.elapsed_time()<<endl;
 
-
+  Timer quick_time;
   a = makeArray(N);
   quickSort(a, N);
-  cout<<"Quicksort time : "<<time.elapsed_time()<<endl;
+  cout<<"Quicksort time : "<<quick_time.elapsed_time()<<endl;
                                                               
   return 0;
 }
