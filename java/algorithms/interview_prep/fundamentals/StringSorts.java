@@ -7,6 +7,7 @@ public class StringSorts
     private static final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final int size = 26;
     private static final char OFFSET = 'A';
+    private static final int CUTOFF = 7;
 
     private static String randString(int W) {
         StringBuilder sb = new StringBuilder(W);
@@ -63,6 +64,35 @@ public class StringSorts
         for (int i = 0; i<N; i++) a[i] = aux[i];
     }
 
+    public static void insertionSort(String[] a) {
+        insertionSort(a, 0, a.length-1, 0);
+        assert(isSorted(a));
+    }
+
+    private static void insertionSort(String[] a, int lo, int hi, int w) {
+        for (int i = lo; i<=hi; i++) {
+            for (int j = i; j>0 && less(a[j], a[j-1], w); j--) exch(a, j-1, j);
+        }
+    }
+
+    // Compare Strings, only from char w onwards
+    private static boolean less(String a, String b, int w) {
+        for (int i = w; i<Math.min(a.length(), b.length()); i++) {
+            if (a.charAt(i) < b.charAt(i)) return true;
+            else if (b.charAt(i) < a.charAt(i)) return false;
+        }
+        return a.length() < b.length();
+    }
+
+    private static void exch(String[] a, int i, int j) {
+        String t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+
+    // Handles variable length String keys, but sacrifices efficiency due to recursive stack
+    // Requires initializing a cnt array on each recursive call
+    // This is prohibitively expensive for large alphabets -- must to cutoff to insertion sort
     public static void msdSort(String[] a) {
         String[] aux = new String[a.length];
         msdSort(a, aux, 0, a.length-1, 0);
@@ -70,7 +100,10 @@ public class StringSorts
     }
 
     private static void msdSort(String[] a, String[] aux, int lo, int hi, int w) {
-        if (hi <= lo) return;
+        if (hi <= lo + CUTOFF) {
+            insertionSort(a, lo, hi, w);
+            return;
+        }
         int N = a.length;
         assert(a.length == aux.length);
         int[] cnt = new int[size+2];
@@ -88,8 +121,8 @@ public class StringSorts
         int W = Integer.parseInt(args[1]);
         String[] a = randStringArray(N, W);
         Stopwatch sw = new Stopwatch();
-        msdSort(a);
-        StdOut.printf("MSD sort: time to sort %d strings, each of length %d: %7.5f\n", N, W, sw.elapsedTime());
+        insertionSort(a);
+        StdOut.printf("insertion sort: time to sort %d strings, each of length %d: %7.5f\n", N, W, sw.elapsedTime());
         a = randStringArray(N, W);
         sw = new Stopwatch();
         lsdSort(a);
