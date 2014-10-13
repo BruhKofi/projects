@@ -75,7 +75,7 @@ public class StringSorts
 
     private static void insertionSort(String[] a, int lo, int hi) {
         for (int i = lo; i<=hi; i++) {
-            for (int j = i; j>0 && a[j-1].compareTo(a[j]) > 0; j--) {
+            for (int j = i; j>lo && a[j-1].compareTo(a[j]) > 0; j--) {
                 exch(a, j-1, j);
             }
         }
@@ -83,7 +83,7 @@ public class StringSorts
 
     private static void insertionSort(String[] a, int lo, int hi, int w) {
         for (int i = lo; i<=hi; i++) {
-            for (int j = i; j>0 && less(a[j], a[j-1], w); j--) exch(a, j-1, j);
+            for (int j = i; j>lo && less(a[j], a[j-1], w); j--) exch(a, j-1, j);
         }
     }
 
@@ -112,10 +112,8 @@ public class StringSorts
     }
 
     private static void msdSort(String[] a, String[] aux, int lo, int hi, int w) {
-        // printArray(a);
-        // StdOut.println();
         if (hi <= lo + CUTOFF) {
-            insertionSort(a, lo, hi);
+            insertionSort(a, lo, hi, w);
             return;
         }
         int N = a.length;
@@ -131,10 +129,14 @@ public class StringSorts
 
     public static void quickSort(String[] a) {
         quickSort(a, 0, a.length-1, 0);
+        assert(isSorted(a));
     }
 
     private static void quickSort(String[] a, int lo, int hi, int w) {
-        if (hi <= lo) return;
+        if (hi <= lo + CUTOFF) {
+            insertionSort(a, lo, hi, w);
+            return;
+        }
         int lt = lo, gt = hi;
         int v = charAt(a[lo], w); // -1 if w exceeds String length-1
         int i = lo+1;
