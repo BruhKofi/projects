@@ -128,7 +128,28 @@ public class StringSorts
         
         for (int i = 0; i<size; i++) msdSort(a, aux, lo+cnt[i], lo+cnt[i+1]-1, w+1);
     }
-        
+
+    public static void quickSort(String[] a) {
+        quickSort(a, 0, a.length-1, 0);
+    }
+
+    private static void quickSort(String[] a, int lo, int hi, int w) {
+        if (hi <= lo) return;
+        int lt = lo, gt = hi;
+        int v = charAt(a[lo], w); // -1 if w exceeds String length-1
+        int i = lo+1;
+        // Partition on current char of key (left -> right)
+        while (i <= gt) {
+            int t = charAt(a[i], w);
+            if (t < v) exch(a, lt++, i++);
+            else if (t > v) exch(a, i, gt--);
+            else i++;
+        }
+
+        quickSort(a, lo, lt-1, w);
+        if (v >= 0) quickSort(a, lt, gt, w+1);
+        quickSort(a, gt+1, hi, w);
+    }
 
     public static void main(String[] args) {
         int N = Integer.parseInt(args[0]);
@@ -145,5 +166,9 @@ public class StringSorts
         sw = new Stopwatch();
         msdSort(a);
         StdOut.printf("MSD sort: time to sort %d strings, each of length %d: %7.5f\n", N, W, sw.elapsedTime());
+        a = randStringArray(N, W);
+        sw = new Stopwatch();
+        quickSort(a);
+        StdOut.printf("Quick sort: time to sort %d strings, each of length %d: %7.5f\n", N, W, sw.elapsedTime());
     }
 }
