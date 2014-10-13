@@ -63,6 +63,20 @@ public class ComparingSorts
         }
     }
 
+    public static void indexSort(int[] a) {
+        indexSort(a, a.length);
+    }
+
+    private static void indexSort(int[] a, int R) {
+        int N = a.length;
+        int[] aux = new int[N];
+        int[] cnt = new int[R+1];
+        for (int i = 0; i<N; i++) cnt[a[i]+1]++;
+        for (int i = 0; i<R; i++) cnt[i+1] += cnt[i];
+        for (int i = 0; i<N; i++) aux[cnt[a[i]]++] = a[i];
+        for (int i = 0; i<N; i++) a[i] = aux[i];
+    }
+
     public static void quicksort(int[] a) {
         shuffle(a);
         quicksort(a, 0, a.length-1);
@@ -198,6 +212,14 @@ public class ComparingSorts
         for (int t = 0; t<T; t++) {
             int[] a = randArray(N);
             Stopwatch sw = new Stopwatch();
+            indexSort(a);
+            time += sw.elapsedTime();
+        }
+        System.out.println("Index sort: " + time);
+        time = 0.0;
+        for (int t = 0; t<T; t++) {
+            int[] a = randArray(N);
+            Stopwatch sw = new Stopwatch();
             quicksort(a);
             time += sw.elapsedTime();
         }
@@ -221,6 +243,14 @@ public class ComparingSorts
         
         time = 0.0;
         System.out.println("Time to sort " + N + " integers uniformly selected in 0 ... 99 " + T + " times");
+        for (int t = 0; t<T; t++) {
+            int[] a = randRepeatedArray(N);
+            Stopwatch sw = new Stopwatch();
+            indexSort(a, 100);
+            time += sw.elapsedTime();
+        }
+        System.out.println("Index sort: " + time);
+        time = 0.0;
         for (int t = 0; t<T; t++) {
             int[] a = randRepeatedArray(N);
             Stopwatch sw = new Stopwatch();
