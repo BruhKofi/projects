@@ -9,6 +9,10 @@ public class StringSorts
     private static final char OFFSET = 'A';
     private static final int CUTOFF = 7;
 
+    private static void printArray(String[] a) {
+        for (int i = 0; i<a.length; i++) StdOut.println(a[i]);
+    }
+    
     private static String randString(int W) {
         StringBuilder sb = new StringBuilder(W);
         for (int i = 0; i<W; i++) sb.append(alphabet.charAt(StdRandom.uniform(size)));
@@ -69,6 +73,14 @@ public class StringSorts
         assert(isSorted(a));
     }
 
+    private static void insertionSort(String[] a, int lo, int hi) {
+        for (int i = lo; i<=hi; i++) {
+            for (int j = i; j>0 && a[j-1].compareTo(a[j]) > 0; j--) {
+                exch(a, j-1, j);
+            }
+        }
+    }
+
     private static void insertionSort(String[] a, int lo, int hi, int w) {
         for (int i = lo; i<=hi; i++) {
             for (int j = i; j>0 && less(a[j], a[j-1], w); j--) exch(a, j-1, j);
@@ -79,7 +91,7 @@ public class StringSorts
     private static boolean less(String a, String b, int w) {
         for (int i = w; i<Math.min(a.length(), b.length()); i++) {
             if (a.charAt(i) < b.charAt(i)) return true;
-            else if (b.charAt(i) < a.charAt(i)) return false;
+            else if (a.charAt(i) > b.charAt(i)) return false;
         }
         return a.length() < b.length();
     }
@@ -100,8 +112,10 @@ public class StringSorts
     }
 
     private static void msdSort(String[] a, String[] aux, int lo, int hi, int w) {
+        // printArray(a);
+        // StdOut.println();
         if (hi <= lo + CUTOFF) {
-            insertionSort(a, lo, hi, w);
+            insertionSort(a, lo, hi);
             return;
         }
         int N = a.length;
@@ -127,5 +141,9 @@ public class StringSorts
         sw = new Stopwatch();
         lsdSort(a);
         StdOut.printf("LSD sort: time to sort %d strings, each of length %d: %7.5f\n", N, W, sw.elapsedTime());
+        a = randStringArray(N, W);
+        sw = new Stopwatch();
+        msdSort(a);
+        StdOut.printf("MSD sort: time to sort %d strings, each of length %d: %7.5f\n", N, W, sw.elapsedTime());
     }
 }
