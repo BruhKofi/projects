@@ -34,6 +34,11 @@ public class StringSorts
         return true;
     }
 
+    private static int charAt(String s, int k) {
+        if (k >= s.length()) return -1;
+        return s.charAt(k) - OFFSET;
+    }
+
     // LSD String sort
     public static void lsdSort(String[] a) {
         assert(lsdWellFormed(a));
@@ -58,10 +63,36 @@ public class StringSorts
         for (int i = 0; i<N; i++) a[i] = aux[i];
     }
 
+    public static void msdSort(String[] a) {
+        String[] aux = new String[a.length];
+        msdSort(a, aux, 0, a.length-1, 0);
+        assert(isSorted(a));
+    }
+
+    private static void msdSort(String[] a, String[] aux, int lo, int hi, int w) {
+        if (hi <= lo) return;
+        int N = a.length;
+        assert(a.length == aux.length);
+        int[] cnt = new int[size+2];
+        for (int i = lo; i<=hi; i++) cnt[charAt(a[i], w)+2]++;
+        for (int i = 0; i<size+1; i++) cnt[i+1] += cnt[i];
+        for (int i = lo; i<=hi; i++) aux[cnt[charAt(a[i], w)+1]++] = a[i];
+        for (int i = lo; i<=hi; i++) a[i] = aux[i-lo];
+        
+        for (int i = 0; i<size; i++) msdSort(a, aux, lo+cnt[i], lo+cnt[i+1]-1, w+1);
+    }
+        
+
     public static void main(String[] args) {
         int N = Integer.parseInt(args[0]);
         int W = Integer.parseInt(args[1]);
         String[] a = randStringArray(N, W);
+        Stopwatch sw = new Stopwatch();
+        msdSort(a);
+        StdOut.printf("MSD sort: time to sort %d strings, each of length %d: %7.5f\n", N, W, sw.elapsedTime());
+        a = randStringArray(N, W);
+        sw = new Stopwatch();
         lsdSort(a);
+        StdOut.printf("LSD sort: time to sort %d strings, each of length %d: %7.5f\n", N, W, sw.elapsedTime());
     }
 }
