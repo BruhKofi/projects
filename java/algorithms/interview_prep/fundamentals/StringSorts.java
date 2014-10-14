@@ -8,6 +8,8 @@ public class StringSorts
     private static final int size = 26;
     private static final char OFFSET = 'A';
     private static final int CUTOFF = 7;
+    private static final int HYBRID_CUTOFF = 150;
+    private static final boolean HYBRID = true;
 
     private static void printArray(String[] a) {
         for (int i = 0; i<a.length; i++) StdOut.println(a[i]);
@@ -107,11 +109,17 @@ public class StringSorts
     // This is prohibitively expensive for large alphabets -- must to cutoff to insertion sort
     public static void msdSort(String[] a) {
         String[] aux = new String[a.length];
-        msdSort(a, aux, 0, a.length-1, 0);
+        msdSort(a, aux, 0, a.length-1, 0, !HYBRID);
         assert(isSorted(a));
     }
 
-    private static void msdSort(String[] a, String[] aux, int lo, int hi, int w) {
+    private static void msdSort(String[] a, String[] aux, int lo, int hi, int w, boolean hybrid) {
+        if (hybrid) {
+            if (hi <= lo + HYBRID_CUTOFF) {
+                quickSort(a, lo, hi, w);
+                return;
+            }
+        }
         if (hi <= lo + CUTOFF) {
             insertionSort(a, lo, hi, w);
             return;
@@ -124,11 +132,11 @@ public class StringSorts
         for (int i = lo; i<=hi; i++) aux[cnt[charAt(a[i], w)+1]++] = a[i];
         for (int i = lo; i<=hi; i++) a[i] = aux[i-lo];
         
-        for (int i = 0; i<size; i++) msdSort(a, aux, lo+cnt[i], lo+cnt[i+1]-1, w+1);
+        for (int i = 0; i<size; i++) msdSort(a, aux, lo+cnt[i], lo+cnt[i+1]-1, w+1, hybrid);
     }
 
     public static void quickSort(String[] a) {
-        quickSort(a, 0, a.length-1, 0);
+        quickSort(a, 0, a.length-1, 0);//May want to shuffle array first
         assert(isSorted(a));
     }
 
@@ -153,6 +161,13 @@ public class StringSorts
         quickSort(a, gt+1, hi, w);
     }
 
+    public static void hybridSort(String[] a) {
+        int N = a.length;
+        String[] aux = new String[N];
+        msdSort(a, aux, 0, N-1, 0, HYBRID);
+        assert(isSorted(a));
+    }
+
     public static void main(String[] args) {
         int N = Integer.parseInt(args[0]);
         int W = Integer.parseInt(args[1]);
@@ -172,5 +187,9 @@ public class StringSorts
         sw = new Stopwatch();
         quickSort(a);
         StdOut.printf("Quick sort: time to sort %d strings, each of length %d: %7.5f\n", N, W, sw.elapsedTime());
+        a = randStringArray(N, W);
+        sw = new Stopwatch();
+        hybridSort(a);
+        StdOut.printf("Hybrid sort: time to sort %d strings, each of length %d: %7.5f\n", N, W, sw.elapsedTime());
     }
 }
