@@ -64,5 +64,30 @@ public class LinkedList<Item extends Comparable<Item>> implements Iterable<Item>
     }
 
     public void reverse() {
+        first = reverse(first);
+    }
+    
+    private Node reverse(Node x) {
+        if (x == null) return null;
+        if (x.next == null) return x;
+        Node second = x.next;
+        Node tail = reverse(second);
+        second.next = x;
+        x.next = null;
+        return tail;
+    }
+
+    public static void main(String[] args) {
+        int N = Integer.parseInt(args[0]);
+        LinkedList<Integer> list = new LinkedList<Integer>();
+        for (int i = 0; i<N; i++) list.push(i);
+        for (Integer i : list) {
+            StdOut.println(i);
+        }
+        StdOut.println();
+        list.reverse();
+        for (Integer i : list) {
+            StdOut.println(i);
+        }
     }
 }
