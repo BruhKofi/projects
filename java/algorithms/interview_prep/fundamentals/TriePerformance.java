@@ -5,16 +5,26 @@ import java.util.HashMap;
 public class TriePerformance
 {
     private static final String LICENSE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private static final int LETTERS = 26;
+    private static final int NUMS = 10;
     private static final int PLATE_LENGTH = 7;
     
     private static String caLicensePlate() {
         StringBuilder sb = new StringBuilder(PLATE_LENGTH);
-        for (int i = 0; i<PLATE_LENGTH; i++) sb.append(LICENSE.charAt(StdRandom.uniform(LICENSE.length())));
+        for (int i = 0; i<PLATE_LENGTH; i++) {
+            // 2nd, 3rd, 4th characters should be letters
+            if (i == 1 || i == 2 || i == 3) {
+                sb.append(LICENSE.charAt(StdRandom.uniform(LETTERS)));
+            } else {
+                sb.append(LICENSE.charAt(LETTERS + StdRandom.uniform(NUMS)));
+            }
+        }
         return sb.toString();
     }
 
     public static void main(String[] args) {
         int N = Integer.parseInt(args[0]); // Number of license plates to add to symbol table
+        //        for (int i = 0; i<N; i++) StdOut.println(caLicensePlate());
         Alphabet alpha = new Alphabet(LICENSE);
         
         TrieST<Integer> trie = new TrieST<Integer>();
