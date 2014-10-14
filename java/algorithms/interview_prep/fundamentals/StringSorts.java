@@ -173,8 +173,8 @@ public class StringSorts
         int W = Integer.parseInt(args[1]);
         String[] a = randStringArray(N, W);
         Stopwatch sw = new Stopwatch();
-        insertionSort(a);
-        StdOut.printf("insertion sort: time to sort %d strings, each of length %d: %7.5f\n", N, W, sw.elapsedTime());
+        // insertionSort(a);
+        // StdOut.printf("insertion sort: time to sort %d strings, each of length %d: %7.5f\n", N, W, sw.elapsedTime());
         a = randStringArray(N, W);
         sw = new Stopwatch();
         lsdSort(a);
@@ -191,5 +191,9 @@ public class StringSorts
         sw = new Stopwatch();
         hybridSort(a);
         StdOut.printf("Hybrid sort: time to sort %d strings, each of length %d: %7.5f\n", N, W, sw.elapsedTime());
+        a = randStringArray(N, W);
+        sw = new Stopwatch();
+        java.util.Arrays.sort(a);
+        StdOut.printf("Java Arrays system sort: time to sort %d strings, each of length %d: %7.5f\n", N, W, sw.elapsedTime());
     }
 }
