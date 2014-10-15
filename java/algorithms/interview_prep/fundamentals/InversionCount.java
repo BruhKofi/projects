@@ -19,19 +19,19 @@ public class InversionCount
 
     public static int linearithmicInversions(Comparable[] a) {
         int N = a.length;
+        Comparable[] copy = new Comparable[N];
+        for (int i = 0; i<N; i++) copy[i] = a[i];// Defensive copy
         Comparable[] aux = new Comparable[N];
-        for (int i = 0; i<N; i++) aux[i] = a[i];// Defensive copy
-        Comparable[] m = new Comparable[N];
-        return linearithmicInversions(aux, m, 0, N-1);
+        return linearithmicInversions(copy, aux, 0, N-1);
     }
 
-    private static int linearithmicInversions(Comparable[] aux, Comparable[] m, int lo, int hi) {
+    private static int linearithmicInversions(Comparable[] a, Comparable[] aux, int lo, int hi) {
         int cnt = 0;
         if (hi <= lo) return cnt;
         int mid = lo + (hi - lo)/2;
-        cnt += linearithmicInversions(aux, m, lo, mid);
-        cnt += linearithmicInversions(aux, m, mid+1, hi);
-        cnt += merge(aux, m, lo, mid, hi);
+        cnt += linearithmicInversions(a, aux, lo, mid);
+        cnt += linearithmicInversions(a, aux, mid+1, hi);
+        cnt += merge(a, aux, lo, mid, hi);
         return cnt;
     }
 
