@@ -229,6 +229,20 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
         else return size(x.left);
     }
 
+    public Key select(int k) {
+        if (k < 0 || k > size()-1) throw new IndexOutOfBoundsException("arg must be between 0 and " + (size()-1));
+        Node x = select(root, k);
+        return x.key;
+    }
+
+    private Node select(Node x, int k) {
+        if (x == null) return null;
+        int t = size(x.left);
+        if (t > k) return select(x.left, k);
+        else if (t < k) return select(x.right, k - t- 1);
+        else return x;
+    }
+
     //Range search
     public Iterable<Key> keys() {
         return keys(min(), max());
@@ -257,7 +271,7 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
             st.put(s, i++);
         }
         while (!StdIn.isEmpty()) {
-            StdOut.println(st.rank(StdIn.readString()));
+            StdOut.println(st.select(Integer.parseInt(StdIn.readString())));
         }
     }
 }
