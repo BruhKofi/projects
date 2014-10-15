@@ -84,4 +84,18 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
         x.N = 1 + size(x.left) + size(x.right);
         return x;
     }
+
+    public Value get(Key key) {
+        Node x = get(root, key);
+        if (x == null) return null;
+        return x.val;
+    }
+
+    private Node get(Node x, Key key) {
+        if (x == null) return null;
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0) return get(x.left, key);
+        else if (cmp > 0) return get(x.right, key);
+        else return x;
+    }
 }
