@@ -165,5 +165,45 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
     private Node delete(Node x, Key key) {
         return null;
     }
-        
+
+    public Key min() {
+        if (isEmpty()) throw new NoSuchElementException("Underflow");
+        Node x = min(root);
+        return x.key;
+    }
+
+    private Node min(Node x) {
+        if (x.left == null) return x;
+        return min(x.left);
+    }
+
+    public Key max() {
+        if (isEmpty()) throw new NoSuchElementException("Underflow");
+        Node x = max(root);
+        return x.key;
+    }
+
+    private Node max(Node x) {
+        if (x.right == null) return x;
+        return max(x.right);
+    }
+
+    public Iterable<Key> keys() {
+        return keys(min(), max());
+    }
+
+    public Iterable<Key> keys(Key lo, Key hi) {
+        Queue<Key> q = new Queue<Key>();
+        keys(root, q, lo, hi);
+        return q;
+    }
+
+    private void keys(Node x, Queue<Key> q, Key lo, Key hi) {
+        if (x == null) return;
+        int cmplo = lo.compareTo(x.key);
+        int cmphi = hi.compareTo(x.key);
+        if (cmplo < 0) keys(x.left, q, lo, hi);
+        if (cmplo <= 0 && cmphi >= 0) q.enqueue(x.key);
+        if (cmphi > 0) keys(x.right, q, lo, hi);
+    }
 }
