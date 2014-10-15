@@ -1,6 +1,7 @@
 /*
   Implementation of Red Black tree with left-leaning red links
 */
+import java.util.NoSuchElementException;
 public class RedBlackST<Key extends Comparable<Key>, Value>
 {
     private static final boolean RED = true;
@@ -52,6 +53,30 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
         return h;
     }
 
+    private Node moveRedLeft(Node x) {
+        flipColors(x);
+        if (isRed(x.right.left)) {
+            x.right = rotateLeft(x.right);
+            x = rotateLeft(x);
+        }
+        return x;
+    }
+
+    private Node moveRedRight(Node x) {
+        flipColors(x);
+        if (isRed(x.left.left)) x = rotateRight(x);
+        return x;
+    }
+
+    private Node balance(Node x) {
+        if (isRed(x.right)) x = rotateLeft(x);
+        if (isRed(x.left) && isRed(x.left.left)) x = rotateRight(x);
+        if (isRed(x.left) && isRed(x.right)) flipColors(x);
+        x.N = 1 + size(x.left) + size(x.right);
+        return x;
+    }
+        
+
     public int size() {
         return size(root);
     }
@@ -102,4 +127,43 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
     private boolean contains(Key key) {
         return get(key) != null;
     }
+
+    public void delMin() {
+        if (isEmpty()) throw new NoSuchElementException("Underflow");
+        if (!isRed(root.left) && !isRed(root.right)) root.color = RED;
+        root = delMin(root);
+        root.color = BLACK;//Always keep root black
+    }
+
+    private Node delMin(Node x) {
+        if (x.left == null) return null;
+        if (!isRed(x.left) && !isRed(x.left.left)) x = moveRedLeft(x);
+        x.left = delMin(x.left);
+        return balance(x);
+    }
+
+    public void delMax() {
+        if (isEmpty()) throw new NoSuchElementException("Underflow");
+        if (!isRed(root.left) && !isRed(root.right)) root.color = RED;
+        root = delMax(root);
+        root.color = BLACK;//Always keep root black
+    }
+
+    private Node delMax(Node x) {
+        if (isRed(x.left)) x = rotateRight(x);
+        if (x.right == null) return null;
+        if (!isRed(x.right) && !isRed(x.right.left)) x = moveRedRight(x);
+        x.right = delMax(x.right);
+        return balance(x);
+    }
+
+    public void delete(Key key) {
+        if (!contains(key)) return;
+        root = delete(root, key);
+    }
+
+    private Node delete(Node x, Key key) {
+        return null;
+    }
+        
 }
