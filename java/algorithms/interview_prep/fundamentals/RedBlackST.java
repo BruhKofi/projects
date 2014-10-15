@@ -98,4 +98,8 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
         else if (cmp > 0) return get(x.right, key);
         else return x;
     }
+
+    private boolean contains(Key key) {
+        return get(key) != null;
+    }
 }
