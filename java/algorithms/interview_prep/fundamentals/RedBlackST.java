@@ -4,6 +4,7 @@
 import java.util.NoSuchElementException;
 public class RedBlackST<Key extends Comparable<Key>, Value>
 {
+    // Class variables
     private static final boolean RED = true;
     private static final boolean BLACK = false;
     private Node root;
@@ -20,6 +21,7 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
         }
     }
 
+    // Helpers
     private boolean isRed(Node x) {
         if (x == null) return false;
         return x.color == RED;
@@ -75,8 +77,11 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
         x.N = 1 + size(x.left) + size(x.right);
         return x;
     }
-        
 
+    /*
+      Begin public API
+    */
+    //Standard symbol table operations
     public int size() {
         return size(root);
     }
@@ -189,6 +194,7 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
         return balance(x);//Keep Red-Black invariant
     }
 
+    //Ordered symbol table operations
     public Key min() {
         if (isEmpty()) throw new NoSuchElementException("Underflow");
         Node x = min(root);
@@ -211,6 +217,19 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
         return max(x.right);
     }
 
+    public int rank(Key key) {
+        return rank(root, key);
+    }
+
+    private int rank(Node x, Key key) {
+        if (x == null) return -1;
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0) return rank(x.left, key);
+        else if (cmp > 0) return 1 + size(x.left) + rank(x.right, key);
+        else return size(x.left);
+    }
+
+    //Range search
     public Iterable<Key> keys() {
         return keys(min(), max());
     }
@@ -238,9 +257,7 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
             st.put(s, i++);
         }
         while (!StdIn.isEmpty()) {
-            st.delete(StdIn.readString());
-            StdOut.println();
-            for (String s : st.keys()) StdOut.println(s);
+            StdOut.println(st.rank(StdIn.readString()));
         }
     }
 }
