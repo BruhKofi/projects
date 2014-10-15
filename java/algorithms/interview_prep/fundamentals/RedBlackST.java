@@ -46,8 +46,8 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
         Node h = x.left;
         x.left = h.right;
         h.right = x;
-        x.color = h.color;
-        h.color = RED;
+        h.color = x.color;
+        x.color = RED;
         h.N = x.N;
         x.N = 1 + size(x.left) + size(x.right);
         return h;
@@ -56,7 +56,7 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
     private Node moveRedLeft(Node x) {
         flipColors(x);
         if (isRed(x.right.left)) {
-            x.right = rotateLeft(x.right);
+            x.right = rotateRight(x.right);
             x = rotateLeft(x);
         }
         return x;
@@ -132,7 +132,7 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
         if (isEmpty()) throw new NoSuchElementException("Underflow");
         if (!isRed(root.left) && !isRed(root.right)) root.color = RED;
         root = delMin(root);
-        root.color = BLACK;//Always keep root black
+        if (!isEmpty()) root.color = BLACK;//Always keep root black
     }
 
     private Node delMin(Node x) {
@@ -146,7 +146,7 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
         if (isEmpty()) throw new NoSuchElementException("Underflow");
         if (!isRed(root.left) && !isRed(root.right)) root.color = RED;
         root = delMax(root);
-        root.color = BLACK;//Always keep root black
+        if (!isEmpty()) root.color = BLACK;//Always keep root black
     }
 
     private Node delMax(Node x) {
@@ -205,5 +205,19 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
         if (cmplo < 0) keys(x.left, q, lo, hi);
         if (cmplo <= 0 && cmphi >= 0) q.enqueue(x.key);
         if (cmphi > 0) keys(x.right, q, lo, hi);
+    }
+
+    public static void main(String[] args) {
+        RedBlackST<String, Integer> st = new RedBlackST<String, Integer>();
+        int i = 0;
+        while (!StdIn.isEmpty()) {
+            String s = StdIn.readString();
+            st.put(s, i++);
+        }
+        while (!st.isEmpty()) {
+            StdOut.println();
+            for (String s : st.keys()) StdOut.println(s);
+            st.delMin();
+        }
     }
 }
