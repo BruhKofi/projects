@@ -45,22 +45,20 @@ public class IterativeTrieST<Value>
     }
 
     public void delete(String s) {
-        Node x = root;
-        int N = s.length();
-        for (int i = 0; i<N; i++) {
-            char c = s.charAt(i);
-            if (x.next[c] == null) return;
-            boolean delete = true;
-            for (int r = 0; r<R; r++) {
-                if (x.next[r] != null) delete = false;; // Don't return, still need to set value to null
-            }
-            if (delete) {
-                Node t = x.next[c];
-                x = null;
-                x = t;
-            }
+        root = delete(root, s, 0);
+    }
+
+    private Node delete(Node x, String s, int d) {
+        if (x == null) return null;
+        if (d == s.length()) x.val = null;
+        else {
+            char c = s.charAt(d);
+            x.next[c] = delete(x.next[c], s, d+1);
         }
-        if (x.val != null) x.val = null;
+
+        if (x.val != null) return x;
+        for (char c = 0; c<R; c++) if (x.next[c] != null) return x;
+        return null;
     }
 
     public static void main(String[] args) {
