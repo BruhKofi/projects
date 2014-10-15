@@ -26,9 +26,9 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
     }
 
     private void flipColors(Node x) {
-        x.color = RED;
-        x.left.color = BLACK;
-        x.right.color = BLACK;
+        x.color = !x.color;
+        x.left.color = !x.left.color;
+        x.right.color = !x.right.color;
     }
 
     private Node rotateLeft(Node x) {
@@ -158,12 +158,35 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
     }
 
     public void delete(Key key) {
-        if (!contains(key)) return;
+        if (isEmpty()) throw new NoSuchElementException("Underflow");
+        if (!contains(key)) return;//Should we inform client code that key is not in the table?
+        if (!isRed(root.left) && !isRed(root.right)) root.color = RED;
         root = delete(root, key);
+        if (!isEmpty()) root.color = BLACK;//Keep root black
     }
 
     private Node delete(Node x, Key key) {
-        return null;
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0) {
+            if (!isRed(x.left) && !isRed(x.left.left)) x = moveRedLeft(x);
+            x.left = delete(x.left, key);
+        } else {
+            if (isRed(x.left)) x = rotateRight(x);
+            cmp = key.compareTo(x.key);
+            if (cmp == 0 && x.right == null) return null;
+            if (!isRed(x.right) && !isRed(x.right.left)) x = moveRedRight(x);
+            cmp = key.compareTo(x.key);
+            if (cmp == 0) {
+                // Replace with successor in BST
+                Node t = min(x.right);
+                x.key = t.key;
+                x.val = t.val;
+                x.right = delMin(x.right);
+            } else {
+                x.right = delete(x.right, key);
+            }
+        }
+        return balance(x);//Keep Red-Black invariant
     }
 
     public Key min() {
@@ -210,14 +233,14 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
     public static void main(String[] args) {
         RedBlackST<String, Integer> st = new RedBlackST<String, Integer>();
         int i = 0;
-        while (!StdIn.isEmpty()) {
+        while (!StdIn.isEmpty() && i < 10) {
             String s = StdIn.readString();
             st.put(s, i++);
         }
-        while (!st.isEmpty()) {
+        while (!StdIn.isEmpty()) {
+            st.delete(StdIn.readString());
             StdOut.println();
             for (String s : st.keys()) StdOut.println(s);
-            st.delMin();
         }
     }
 }
