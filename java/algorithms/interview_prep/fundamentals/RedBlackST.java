@@ -260,6 +260,23 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
         return x;
     }
 
+    public Key ceiling(Key key) {
+        Node x = ceiling(root, key);
+        if (x == null) return null;
+        return x.key;
+    }
+
+    private Node ceiling(Node x, Key key) {
+        if (x == null) return null;
+        int cmp = key.compareTo(x.key);
+        if (cmp > 0) return ceiling(x.right, key);
+        else if (cmp < 0) {
+            Node t = ceiling(x.left, key);
+            if (t != null) return t;
+        }
+        return x;
+    }
+
     //Range search
     public Iterable<Key> keys() {
         return keys(min(), max());
@@ -288,7 +305,7 @@ public class RedBlackST<Key extends Comparable<Key>, Value>
             st.put(s, i++);
         }
         while (!StdIn.isEmpty()) {
-            StdOut.println(st.floor(StdIn.readString()));
+            StdOut.println(st.ceiling(StdIn.readString()));
         }
     }
 }
