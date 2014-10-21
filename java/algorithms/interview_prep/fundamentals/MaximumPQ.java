@@ -22,6 +22,12 @@ public class MaximumPQ<Item extends Comparable<Item>> implements Iterable<Item>
         return N;
     }
 
+    public void insert(Item item) {
+        if (N == items.length-1) resize(2*items.length);
+        items[++N] = item;
+        swim(N);
+    }
+
     public Item max() {
         if (isEmpty()) throw new NoSuchElementException("PQ underflow");
         return items[1];
@@ -33,11 +39,12 @@ public class MaximumPQ<Item extends Comparable<Item>> implements Iterable<Item>
         exch(1, N--);
         items[N+1] = null;
         sink(1);
+        if (N > 0 && (items.length-1)/4 == N) resize(items.length/2);
         return item;
     }
 
     private void resize(int size) {
-        Item[] t = (Item[]) new Comparable[size];
+        Item[] t = (Item[]) new Comparable[size+1];
         for (int i = 1; i<=N; i++) t[i] = items[i];
         items = t;
     }
@@ -75,15 +82,30 @@ public class MaximumPQ<Item extends Comparable<Item>> implements Iterable<Item>
 
     private class PQIterator implements Iterator<Item>
     {
+        private MaximumPQ<Item> pqCopy;
+
+        public PQIterator() {
+            pqCopy = new MaximumPQ<Item>();
+            for (int i = 1; i<=N; i++) pqCopy.insert(items[i]);
+        }
+        
         public boolean hasNext() {
-            return true;
+            return !pqCopy.isEmpty();
         }
 
         public Item next() {
-            return items[1];
+            return pqCopy.delMax();
         }
 
         public void remove() {
+            throw new UnsupportedOperationException();
         }
+    }
+
+    public static void main(String[] args) {
+        int N = Integer.parseInt(args[0]);
+        MaximumPQ<Integer> maxPQ = new MaximumPQ<Integer>();
+        for (int i = 1; i<=N; i++) maxPQ.insert(StdRandom.uniform(N));
+        while (!maxPQ.isEmpty()) StdOut.println(maxPQ.delMax());
     }
 }
